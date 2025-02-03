@@ -6,14 +6,20 @@ import org.khamit.travel.insurance.rest.TravelCalculatePremiumResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@ExtendWith(MockitoExtension.class)
 class TravelCalculatePremiumServiceImplTest {
 
-    private final TravelCalculatePremiumServiceImpl service = new TravelCalculatePremiumServiceImpl(new DateTimeServiceImpl());
+    @Mock
+    private DateTimeServiceImpl dateTimeService;
+    @InjectMocks
+    private TravelCalculatePremiumServiceImpl service;
     private TravelCalculatePremiumRequest request;
 
     @BeforeEach
@@ -23,6 +29,7 @@ class TravelCalculatePremiumServiceImplTest {
         request.setAgreementDateTo(LocalDate.parse("2025-01-23"));
         request.setPersonFirstName("Khamit");
         request.setPersonLastName("Bil");
+        Mockito.when(dateTimeService.calculateAgreementPrice(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
     }
 
     @Test
@@ -30,19 +37,20 @@ class TravelCalculatePremiumServiceImplTest {
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals(request.getPersonFirstName(), response.getPersonFirstName());
     }
+
     @Test
     public void calculatePremiumLastNameCorrect(){
-
-
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals(request.getPersonFirstName(), response.getPersonFirstName());
     }
+
     @Test
     public void calculatePremiumDateToCorrect(){
 
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals(request.getAgreementDateTo(),response.getAgreementDateTo());
     }
+
     @Test
     public void calculatePremiumDateFromCorrect(){
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
@@ -51,11 +59,10 @@ class TravelCalculatePremiumServiceImplTest {
 
     @Test
     public void calculatePremiumAgreementPriceCorrect(){
+
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
-        Assertions.assertEquals(new BigDecimal("2"),response.getAgreementPrice());
+        Assertions.assertEquals( BigDecimal.valueOf(2L),response.getAgreementPrice());
     }
-
-
 
 
 }
