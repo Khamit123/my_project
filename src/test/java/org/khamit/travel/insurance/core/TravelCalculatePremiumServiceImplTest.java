@@ -1,19 +1,21 @@
 package org.khamit.travel.insurance.core;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.khamit.travel.insurance.rest.TravelCalculatePremiumRequest;
 import org.khamit.travel.insurance.rest.TravelCalculatePremiumResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-
 class TravelCalculatePremiumServiceImplTest {
 
-    private TravelCalculatePremiumServiceImpl service = new TravelCalculatePremiumServiceImpl();
+    private final TravelCalculatePremiumServiceImpl service = new TravelCalculatePremiumServiceImpl(new DateTimeServiceImpl());
     private TravelCalculatePremiumRequest request;
+
     @BeforeEach
     public void createRequest() {
         request = new TravelCalculatePremiumRequest();
@@ -51,12 +53,6 @@ class TravelCalculatePremiumServiceImplTest {
     public void calculatePremiumAgreementPriceCorrect(){
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals(new BigDecimal("1"),response.getAgreementPrice());
-    }
-    @Test
-    public void calculateAgreementPriceWorkCorrect(){
-       BigDecimal price =  service.calculateAgreementPrice(new Date(2025, Calendar.JANUARY,23),new Date(2025, Calendar.JANUARY,24));
-        Assertions.assertEquals(new BigDecimal("1"),price);
-
     }
 
 

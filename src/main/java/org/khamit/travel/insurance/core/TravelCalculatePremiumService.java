@@ -9,6 +9,5 @@ import java.util.Date;
 public interface TravelCalculatePremiumService {
 
     public TravelCalculatePremiumResponse calculatePremium(TravelCalculatePremiumRequest request);
-    public BigDecimal calculateAgreementPrice(Date startDate, Date endDate);
 
 }

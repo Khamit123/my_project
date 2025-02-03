@@ -2,6 +2,7 @@ package org.khamit.travel.insurance.core;
 
 import org.khamit.travel.insurance.rest.TravelCalculatePremiumRequest;
 import org.khamit.travel.insurance.rest.TravelCalculatePremiumResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.util.Date;
 
 @Component
 class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService {
+    private final DateTimeService dateTimeService;
 
     @Override
     public TravelCalculatePremiumResponse calculatePremium(TravelCalculatePremiumRequest request) {
@@ -20,15 +22,12 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
         response.setPersonFirstName(request.getPersonFirstName());
         response.setPersonLastName(request.getPersonLastName());
         response.setAgreementDateTo(request.getAgreementDateTo());
-        response.setAgreementPrice(calculateAgreementPrice(request.getAgreementDateFrom(),request.getAgreementDateTo()));
+        response.setAgreementPrice(dateTimeService.calculateAgreementPrice(request.getAgreementDateFrom(),request.getAgreementDateTo()));
         return response;
     }
 
-    @Override
-    public BigDecimal calculateAgreementPrice(Date startDate, Date endDate) {
-        LocalDate DateFrom = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate DateTo = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return BigDecimal.valueOf(ChronoUnit.DAYS.between(DateFrom,DateTo));
+    @Autowired
+    public TravelCalculatePremiumServiceImpl(DateTimeServiceImpl dateTimeService) {
+        this.dateTimeService = dateTimeService;
     }
-
 }
