@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Component
-public class DateTimeServiceImpl implements DateTimeService {
+class DateTimeServiceImpl implements DateTimeService {
 
     @Override
     public BigDecimal calculateAgreementPrice(LocalDate startDate, LocalDate endDate) {
