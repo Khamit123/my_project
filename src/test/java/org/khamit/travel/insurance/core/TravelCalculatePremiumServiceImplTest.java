@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+
 class TravelCalculatePremiumServiceImplTest {
 
     private final TravelCalculatePremiumServiceImpl service = new TravelCalculatePremiumServiceImpl(new DateTimeServiceImpl());
@@ -19,8 +19,8 @@ class TravelCalculatePremiumServiceImplTest {
     @BeforeEach
     public void createRequest() {
         request = new TravelCalculatePremiumRequest();
-        request.setAgreementDateTo(new Date(2025, Calendar.JANUARY,24));
-        request.setAgreementDateFrom(new Date(2025, Calendar.JANUARY,23));
+        request.setAgreementDateFrom(LocalDate.parse("2025-01-22"));
+        request.setAgreementDateTo(LocalDate.parse("2025-01-23"));
         request.setPersonFirstName("Khamit");
         request.setPersonLastName("Bil");
     }
@@ -52,7 +52,7 @@ class TravelCalculatePremiumServiceImplTest {
     @Test
     public void calculatePremiumAgreementPriceCorrect(){
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
-        Assertions.assertEquals(new BigDecimal("1"),response.getAgreementPrice());
+        Assertions.assertEquals(new BigDecimal("2"),response.getAgreementPrice());
     }
 
 

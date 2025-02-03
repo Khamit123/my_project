@@ -13,7 +13,13 @@ import java.util.Date;
 
 @Component
 class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService {
+
     private final DateTimeService dateTimeService;
+
+    @Autowired
+    public TravelCalculatePremiumServiceImpl(DateTimeServiceImpl dateTimeService) {
+        this.dateTimeService = dateTimeService;
+    }
 
     @Override
     public TravelCalculatePremiumResponse calculatePremium(TravelCalculatePremiumRequest request) {
@@ -26,8 +32,5 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
         return response;
     }
 
-    @Autowired
-    public TravelCalculatePremiumServiceImpl(DateTimeServiceImpl dateTimeService) {
-        this.dateTimeService = dateTimeService;
-    }
+
 }

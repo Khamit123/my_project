@@ -1,6 +1,7 @@
 package org.khamit.travel.insurance.rest;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,11 +9,11 @@ public class TravelCalculatePremiumResponse {
 
     private String personFirstName;
     private String personLastName;
-    private Date agreementDateFrom;
-    private Date agreementDateTo;
+    private LocalDate agreementDateFrom;
+    private LocalDate agreementDateTo;
     private BigDecimal agreementPrice;
 
-    public TravelCalculatePremiumResponse(String personFirstName, String personLastName, Date agreementDateFrom, Date agreementDateTo) {
+    public TravelCalculatePremiumResponse(String personFirstName, String personLastName, LocalDate agreementDateFrom, LocalDate agreementDateTo) {
         this.personFirstName = personFirstName;
         this.personLastName = personLastName;
         this.agreementDateFrom = agreementDateFrom;
@@ -47,19 +48,19 @@ public class TravelCalculatePremiumResponse {
         this.personLastName = personLastName;
     }
 
-    public Date getAgreementDateFrom() {
+    public LocalDate getAgreementDateFrom() {
         return agreementDateFrom;
     }
 
-    public void setAgreementDateFrom(Date agreementDateFrom) {
+    public void setAgreementDateFrom(LocalDate agreementDateFrom) {
         this.agreementDateFrom = agreementDateFrom;
     }
 
-    public Date getAgreementDateTo() {
+    public LocalDate getAgreementDateTo() {
         return agreementDateTo;
     }
 
-    public void setAgreementDateTo(Date agreementDateTo) {
+    public void setAgreementDateTo(LocalDate agreementDateTo) {
         this.agreementDateTo = agreementDateTo;
     }
 
@@ -67,8 +68,8 @@ public class TravelCalculatePremiumResponse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TravelCalculatePremiumResponse response = (TravelCalculatePremiumResponse) o;
-        return Objects.equals(personFirstName, response.personFirstName) && Objects.equals(personLastName, response.personLastName) && Objects.equals(agreementDateFrom, response.agreementDateFrom) && Objects.equals(agreementDateTo, response.agreementDateTo) && Objects.equals(agreementPrice, response.agreementPrice);
+        TravelCalculatePremiumResponse that = (TravelCalculatePremiumResponse) o;
+        return Objects.equals(personFirstName, that.personFirstName) && Objects.equals(personLastName, that.personLastName) && Objects.equals(agreementDateFrom, that.agreementDateFrom) && Objects.equals(agreementDateTo, that.agreementDateTo) && Objects.equals(agreementPrice, that.agreementPrice);
     }
 
     @Override

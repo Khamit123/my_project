@@ -12,9 +12,8 @@ import java.util.Date;
 public class DateTimeServiceImpl implements DateTimeService {
 
     @Override
-    public BigDecimal calculateAgreementPrice(Date startDate, Date endDate) {
-        LocalDate DateFrom = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate DateTo = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return BigDecimal.valueOf(ChronoUnit.DAYS.between(DateFrom,DateTo));
+    public BigDecimal calculateAgreementPrice(LocalDate startDate, LocalDate endDate) {
+
+        return BigDecimal.valueOf(ChronoUnit.DAYS.between(startDate,endDate)+ 1L);
     }
 }
