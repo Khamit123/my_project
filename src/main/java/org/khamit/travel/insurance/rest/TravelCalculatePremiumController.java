@@ -2,7 +2,8 @@ package org.khamit.travel.insurance.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.khamit.travel.insurance.core.TravelCalculatePremiumService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.TravelCalculatePremiumResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

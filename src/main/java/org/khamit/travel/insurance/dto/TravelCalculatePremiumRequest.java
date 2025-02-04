@@ -1,4 +1,4 @@
-package org.khamit.travel.insurance.rest;
+package org.khamit.travel.insurance.dto;
 
 import lombok.*;
 
