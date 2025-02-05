@@ -18,7 +18,7 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 class TravelCalculatePremiumServiceImplTest {
 
-    @Mock private DateTimeServiceImpl dateTimeService;
+    @Mock private TravelPremiumUnderwritingService underwritingService;
     @Mock private TravelCalculatePremiumRequestValidator validator;
     @InjectMocks
     private TravelCalculatePremiumServiceImpl service;
@@ -35,7 +35,7 @@ class TravelCalculatePremiumServiceImplTest {
     @Test
     public void calculatePremiumFirstNameCorrect(){
         TravelCalculatePremiumRequest request = createRequest();
-        Mockito.when(dateTimeService.calculateAgreementPrice(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
+        Mockito.when(underwritingService.calculateUnderwriting(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals(request.getPersonFirstName(), response.getPersonFirstName());
     }
@@ -43,7 +43,7 @@ class TravelCalculatePremiumServiceImplTest {
     @Test
     public void calculatePremiumLastNameCorrect(){
         TravelCalculatePremiumRequest request = createRequest();
-        Mockito.when(dateTimeService.calculateAgreementPrice(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
+        Mockito.when(underwritingService.calculateUnderwriting(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals(request.getPersonFirstName(), response.getPersonFirstName());
     }
@@ -51,7 +51,7 @@ class TravelCalculatePremiumServiceImplTest {
     @Test
     public void calculatePremiumDateToCorrect(){
         TravelCalculatePremiumRequest request = createRequest();
-        Mockito.when(dateTimeService.calculateAgreementPrice(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
+        Mockito.when(underwritingService.calculateUnderwriting(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals(request.getAgreementDateTo(),response.getAgreementDateTo());
     }
@@ -59,7 +59,7 @@ class TravelCalculatePremiumServiceImplTest {
     @Test
     public void calculatePremiumDateFromCorrect(){
         TravelCalculatePremiumRequest request = createRequest();
-        Mockito.when(dateTimeService.calculateAgreementPrice(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
+        Mockito.when(underwritingService.calculateUnderwriting(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals( request.getAgreementDateFrom(),response.getAgreementDateFrom());
     }
@@ -67,7 +67,7 @@ class TravelCalculatePremiumServiceImplTest {
     @Test
     public void calculatePremiumAgreementPriceCorrect(){
         TravelCalculatePremiumRequest request = createRequest();
-        Mockito.when(dateTimeService.calculateAgreementPrice(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
+        Mockito.when(underwritingService.calculateUnderwriting(Mockito.any(), Mockito.any())).thenReturn(BigDecimal.valueOf(2L));
         TravelCalculatePremiumResponse response= service.calculatePremium(request);
         Assertions.assertEquals( BigDecimal.valueOf(2L),response.getAgreementPrice());
     }
@@ -111,7 +111,7 @@ class TravelCalculatePremiumServiceImplTest {
         TravelCalculatePremiumRequest request =new TravelCalculatePremiumRequest();
         Mockito.when(validator.validate(request)).thenReturn(List.of(new ValidationError("one","one")));
         service.calculatePremium(request);
-        Mockito.verifyNoInteractions(dateTimeService);
+        Mockito.verifyNoInteractions(underwritingService);
     }
 
 

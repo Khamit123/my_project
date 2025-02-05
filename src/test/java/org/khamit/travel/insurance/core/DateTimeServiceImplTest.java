@@ -11,13 +11,13 @@ class DateTimeServiceImplTest {
     DateTimeServiceImpl dateTimeService = new DateTimeServiceImpl();
 
     @Test
-    public void calculateAgreementPriceDatesIsNormalReturnDifference(){
-        BigDecimal price =  dateTimeService.calculateAgreementPrice(LocalDate.parse("2025-01-22"),LocalDate.parse("2025-01-23"));
+    public void calculateDaysBetweenDatesIsNormalReturnDifference(){
+        BigDecimal price =  dateTimeService.calculateDaysBetween(LocalDate.parse("2025-01-22"),LocalDate.parse("2025-01-23"));
         Assertions.assertEquals(new BigDecimal("2"),price);
     }
     @Test
-    public void calculateAgreementPriceDatesIsSameReturnOne(){
-        BigDecimal price =  dateTimeService.calculateAgreementPrice(LocalDate.parse("2025-01-22"),LocalDate.parse("2025-01-22"));
+    public void calculateDaysBetweenDatesIsSameReturnOne(){
+        BigDecimal price =  dateTimeService.calculateDaysBetween(LocalDate.parse("2025-01-22"),LocalDate.parse("2025-01-22"));
         Assertions.assertEquals(new BigDecimal("1"),price);
     }
 

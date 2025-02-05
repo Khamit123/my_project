@@ -5,5 +5,5 @@ import java.time.LocalDate;
 
 
 interface DateTimeService {
-    public BigDecimal calculateAgreementPrice(LocalDate startDate, LocalDate endDate);
+    public BigDecimal calculateDaysBetween(LocalDate startDate, LocalDate endDate);
 }

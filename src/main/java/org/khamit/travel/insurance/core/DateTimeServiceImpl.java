@@ -12,7 +12,7 @@ import java.util.Date;
 class DateTimeServiceImpl implements DateTimeService {
 
     @Override
-    public BigDecimal calculateAgreementPrice(LocalDate startDate, LocalDate endDate) {
+    public BigDecimal calculateDaysBetween(LocalDate startDate, LocalDate endDate) {
 
         return BigDecimal.valueOf(ChronoUnit.DAYS.between(startDate,endDate)+ 1L);
     }
