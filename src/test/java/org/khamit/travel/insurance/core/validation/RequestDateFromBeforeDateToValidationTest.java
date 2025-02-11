@@ -23,7 +23,7 @@ class RequestDateFromBeforeDateToValidationTest {
         Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2025-01-11"));
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
-        assertEquals( new ValidationError("dateFrom","dateFrom must be before than dateTo"),error.get());
+        assertEquals( new ValidationError("agreementdateFrom","dateFrom must be before than dateTo"),error.get());
     }
     @Test
     void validateFieldDateFromIsEqualDateToReturnNoErrorTest() {

@@ -1,9 +1,18 @@
 package org.khamit.travel.insurance.core;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public interface TravelPremiumUnderwritingService {
+@Component
+@RequiredArgsConstructor
+public class TravelPremiumUnderwritingService {
+    private final DateTimeService dateTimeService;
+    public BigDecimal calculateUnderwriting(LocalDate dateFrom, LocalDate dateTo){
+        return dateTimeService.calculateDaysBetween(dateFrom,dateTo);
 
-    public BigDecimal calculateUnderwriting(LocalDate dateFrom, LocalDate dateTo);
+    }
+
 }

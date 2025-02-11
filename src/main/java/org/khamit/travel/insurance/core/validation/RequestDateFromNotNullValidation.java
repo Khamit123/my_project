@@ -10,7 +10,7 @@ import java.util.Optional;
     @Override
     public Optional<ValidationError> validateField(TravelCalculatePremiumRequest request) {
             return (request.getAgreementDateFrom() == null)
-                    ? Optional.of(new ValidationError("dateFrom", "Must not be empty!"))
+                    ? Optional.of(new ValidationError("agreementdateFrom", "Must not be empty!"))
                     : Optional.empty();
 
     }

@@ -12,7 +12,7 @@ import java.util.Optional;
         return (request.getAgreementDateFrom()==null
                 ||request.getAgreementDateTo()==null
                 ||request.getAgreementDateFrom().until(request.getAgreementDateTo()).getDays()<0)
-                ?Optional.of(new ValidationError("dateFrom","dateFrom must be before than dateTo"))
+                ?Optional.of(new ValidationError("agreementdateFrom","dateFrom must be before than dateTo"))
                 :Optional.empty();
     }
 }

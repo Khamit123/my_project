@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-class DateTimeServiceImplTest {
-    DateTimeServiceImpl dateTimeService = new DateTimeServiceImpl();
+class DateTimeServiceTest {
+    DateTimeService dateTimeService = new DateTimeService();
 
     @Test
     public void calculateDaysBetweenDatesIsNormalReturnDifference(){
