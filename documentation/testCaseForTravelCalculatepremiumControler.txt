@@ -1,0 +1,194 @@
+1.Дано:personFirstName не указан, остальные заполнены правильно.
+  Ожидаем: пустые поля кроме ошибки personFirstName не должен быть пустым
+
+  {
+    "personFirstName" : null,
+    "personLastName" : "Bil",
+    "agreementDateFrom" : "2021-05-25",
+    "agreementDateTo" : "2021-05-29"
+  }
+
+  Response:
+  {
+    "errors": [
+      {
+        "field": "personFirstName",
+        "message": "Must not be empty!"
+      }
+    ],
+    "personFirstName": null,
+    "personLastName": null,
+    "agreementDateFrom": null,
+    "agreementDateTo": null,
+    "agreementPrice": null
+  }
+
+2.Дано:personLastName не указан, остальные заполнены правильно.
+  Ожидаем: пустые поля кроме ошибки personLastName не должен быть пустым
+
+{
+  "personFirstName" : "Vasja",
+  "personLastName" : null,
+  "agreementDateFrom" : "2021-05-25",
+  "agreementDateTo" : "2021-05-29"
+}
+
+Response:
+{
+  "errors": [
+    {
+      "field": "personLastName",
+      "message": "Must not be empty!"
+    }
+  ],
+  "personFirstName": null,
+  "personLastName": null,
+  "agreementDateFrom": null,
+  "agreementDateTo": null,
+  "agreementPrice": null
+}
+
+
+3.Дано:agreementDateTo не указан, остальные заполнены правильно.
+  Ожидаем: пустые поля кроме ошибки agreementDateTo не должен быть пустым
+
+  Request:
+  {
+    "personFirstName" : "Vasja",
+    "personLastName" : "Pupkin",
+    "agreementDateFrom" : "2021-05-29",
+    "agreementDateTo" : null
+  }
+
+  Response:
+  {
+    "errors": [
+      {
+        "field": "agreementDateTo",
+        "message": "Must not be empty!"
+      }
+    ],
+    "personFirstName": null,
+    "personLastName": null,
+    "agreementDateFrom": null,
+    "agreementDateTo": null,
+    "agreementPrice": null
+  }
+
+
+4.Дано:agreementDateFrom не указан, остальные заполнены правильно.
+  Ожидаем: пустые поля кроме ошибки agreementDateFrom не должен быть пустым
+
+  Request:
+  {
+    "personFirstName" : "Vasja",
+    "personLastName" : "Pupkin",
+    "agreementDateFrom" : null,
+    "agreementDateTo" : "2021-05-29"
+  }
+
+  Response:
+  {
+    "errors": [
+      {
+        "field": "agreementDateFrom",
+        "message": "Must not be empty!"
+      }
+    ],
+    "personFirstName": null,
+    "personLastName": null,
+    "agreementDateFrom": null,
+    "agreementDateTo": null,
+    "agreementPrice": null
+  }
+
+
+
+5.Дано:agreementDateFrom>agreementDateTo, остальные заполнены правильно.
+  Ожидаем: пустые поля кроме ошибки agreementDateFrom должен быть <= agreementDateTo
+
+  Request:
+  {
+    "personFirstName" : "Vasja",
+    "personLastName" : "Pupkin",
+    "agreementDateFrom" : "2021-05-20",
+    "agreementDateTo" : "2021-05-10"
+  }
+
+  Response:
+  {
+    "errors": [
+      {
+        "field": "agreementDateFrom",
+        "message": "Must be less then agreementDateTo!"
+      }
+    ],
+    "personFirstName": null,
+    "personLastName": null,
+    "agreementDateFrom": null,
+    "agreementDateTo": null,
+    "agreementPrice": null
+  }
+
+
+6.Дано:allField заполнено неправильно.
+  Ожидаем:пустые поля кроме ошибки для всех полей
+
+  Request:
+  {
+    "personFirstName" : null,
+    "personLastName" : null,
+    "agreementDateFrom" : null,
+    "agreementDateTo" : null
+  }
+
+  Response:
+  {
+    "errors": [
+      {
+        "field": "personFirstName",
+        "message": "Must not be empty!"
+      },
+      {
+        "field": "personLastName",
+        "message": "Must not be empty!"
+      },
+      {
+        "field": "agreementDateFrom",
+        "message": "Must not be empty!"
+      },
+      {
+        "field": "agreementDateTo",
+        "message": "Must not be empty!"
+      }
+    ],
+    "personFirstName": null,
+    "personLastName": null,
+    "agreementDateFrom": null,
+    "agreementDateTo": null,
+    "agreementPrice": null
+  }
+
+
+
+7.Дано:allField заполнено правильно.
+  Ожидаем:все заполненные поля + посчитанную страховку
+
+  Request:
+  {
+    "personFirstName" : "Vasja",
+    "personLastName" : "Pupkin",
+    "agreementDateFrom" : "2021-05-25",
+    "agreementDateTo" : "2021-05-29"
+  }
+
+  Response:
+  {
+    "errors": null,
+    "personFirstName": "Vasja",
+    "personLastName": "Pupkin",
+    "agreementDateFrom": "2021-05-25",
+    "agreementDateTo": "2021-05-29",
+    "agreementPrice": 5
+  }
+

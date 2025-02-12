@@ -25,8 +25,8 @@ class TravelCalculatePremiumServiceImplTest {
 
     public TravelCalculatePremiumRequest createRequest() {
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
-        request.setAgreementDateFrom(LocalDate.parse("2025-01-22"));
-        request.setAgreementDateTo(LocalDate.parse("2025-01-23"));
+        request.setAgreementDateFrom(LocalDate.parse("2125-01-22"));
+        request.setAgreementDateTo(LocalDate.parse("2125-01-23"));
         request.setPersonFirstName("Khamit");
         request.setPersonLastName("Bil");
         return request;

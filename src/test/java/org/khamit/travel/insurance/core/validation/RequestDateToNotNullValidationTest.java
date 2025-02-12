@@ -20,13 +20,13 @@ class RequestDateToNotNullValidationTest {
         Mockito.when(request.getAgreementDateTo()).thenReturn(null);
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
-        assertEquals( new ValidationError("agreementdateTo","Must not be empty!"),error.get());
+        assertEquals( new ValidationError("agreementDateTo","Must not be empty!"),error.get());
     }
 
     @Test
     void validateFieldDateToIsNotNullNotReturnErrorTest() {
         TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
-        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2025-01-22"));
+        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2125-01-22"));
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());
     }

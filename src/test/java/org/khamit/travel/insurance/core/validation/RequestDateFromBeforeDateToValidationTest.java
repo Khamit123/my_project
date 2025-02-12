@@ -19,44 +19,44 @@ class RequestDateFromBeforeDateToValidationTest {
     @Test
     void validateFieldDateFromNotBeforeDateToReturnErrorTest() {
         TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
-        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2025-01-12"));
-        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2025-01-11"));
+        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2125-01-12"));
+        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2125-01-11"));
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
-        assertEquals( new ValidationError("agreementdateFrom","dateFrom must be before than dateTo"),error.get());
+        assertEquals( new ValidationError("agreementDateFrom","dateFrom must be before than dateTo"),error.get());
     }
     @Test
     void validateFieldDateFromIsEqualDateToReturnNoErrorTest() {
         TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
-        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2025-01-12"));
-        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2025-01-12"));
+        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2125-01-12"));
+        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2125-01-12"));
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());
     }
     @Test
     void validateFieldDateFromBeforeDateToReturnNoErrorTest() {
         TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
-        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2025-01-12"));
-        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2025-01-13"));
+        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2125-01-12"));
+        Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2125-01-13"));
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());
     }
     @Test
     void validateFieldDateFromIsNullDateToIsPresentReturnErrorTest() {
         TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
-        Mockito.lenient().when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2025-01-13"));
+        Mockito.lenient().when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2125-01-13"));
         Mockito.when(request.getAgreementDateFrom()).thenReturn(null);
         Optional<ValidationError> error = validation.validateField(request);
-        assertTrue(error.isPresent());
+        assertFalse(error.isPresent());
     }
 
     @Test
-    void validateFieldDateFromIsPresentDateToIsNullReturnErrorTest() {
+    void validateFieldDateFromIsPresentDateToIsNullReturnNoErrorTest() {
         TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
-        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2025-01-13"));
+        Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2125-01-13"));
         Mockito.when(request.getAgreementDateTo()).thenReturn(null);
         Optional<ValidationError> error = validation.validateField(request);
-        assertTrue(error.isPresent());
+        assertFalse(error.isPresent());
     }
 
     @Test
@@ -65,7 +65,7 @@ class RequestDateFromBeforeDateToValidationTest {
         Mockito.when(request.getAgreementDateFrom()).thenReturn(null);
         Mockito.when(request.getAgreementDateTo()).thenReturn(null);
         Optional<ValidationError> error = validation.validateField(request);
-        assertTrue(error.isPresent());
+        assertFalse(error.isPresent());
     }
 
 }
