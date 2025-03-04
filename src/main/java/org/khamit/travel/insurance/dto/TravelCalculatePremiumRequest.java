@@ -3,7 +3,9 @@ package org.khamit.travel.insurance.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +18,15 @@ public class TravelCalculatePremiumRequest {
     private LocalDate agreementDateFrom;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate agreementDateTo;
+
+    private List<String> selectedRisks;
+    // Медицинский риск
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private LocalDate birthday;
+    private int country;
+    private BigDecimal medicalLimit;
+    //Медицинский риск
+
 
 
 }

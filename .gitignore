@@ -45,7 +45,7 @@ out/
 
 #log specific
 *.log
-
+*.gz
 #Mac
 **/.DS_Store
 

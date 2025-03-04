@@ -33,13 +33,11 @@ class RequestDateFromMustBeInFutureValidationTest {
 
     }
     @Test
-    void validateFieldDateFromNInFutureReturnNoErrorTest()
+    void validateFieldDateFromInFutureReturnNoErrorTest()
     {
         TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
         Mockito.when(request.getAgreementDateFrom()).thenReturn(LocalDate.parse("2123-01-01"));
         Optional<ValidationError>  error= validation.validateField(request);
-        assertTrue(error.isPresent());
-        assertEquals(new ValidationError("agreementDateFrom",
-                "dateFrom must be in future"), error.get());
+        assertFalse(error.isPresent());
     }
 }
