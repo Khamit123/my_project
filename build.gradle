@@ -23,6 +23,8 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'com.h2database:h2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     compileOnly('org.projectlombok:lombok:1.18.32')
@@ -31,6 +33,7 @@ dependencies {
     testCompileOnly('org.projectlombok:lombok:1.18.32')
     testAnnotationProcessor('org.projectlombok:lombok:1.18.32')
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    testImplementation('uk.org.webcompere:model-assert:1.0.0')
 
 
     test {
