@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -18,5 +19,6 @@ public class CoreResponse {
     public boolean hasErrors() {
         return errors != null && !errors.isEmpty();
     }
+
 
 }

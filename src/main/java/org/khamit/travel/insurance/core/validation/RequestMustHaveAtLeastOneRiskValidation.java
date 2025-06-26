@@ -1,0 +1,16 @@
+package org.khamit.travel.insurance.core.validation;
+
+import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.ValidationError;
+import org.springframework.stereotype.Component;
+
+import java.util.Optional;
+@Component
+public class RequestMustHaveAtLeastOneRiskValidation implements RequestValidation{
+    @Override
+    public Optional<ValidationError> validateField(TravelCalculatePremiumRequest request) {
+        return (request.getSelectedRisks() == null || request.getSelectedRisks().isEmpty())?
+                Optional.of(new ValidationError("selectedRisk","At least one risk must be selected")):
+                Optional.empty();
+    }
+}

@@ -16,18 +16,17 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
-class RequestRiskMustBeInDBTest {
+class RequestRiskMustBeInDBValidationTest {
 
     @Mock
     RiskTypeRepository riskTypeRepository;
     @InjectMocks
-    RequestRiskMustBeInDB valid;
+    RequestRiskMustBeInDBValidation valid;
 
 
     @Test
     void validateFieldNoRiskReturnNotError() {
-        Mockito.when(riskTypeRepository.findAllTitles()).thenReturn(List.of("Медицинский риск","Отмена поездки"));
-
+        Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of());
         Optional<ValidationError> error = valid.validateField(request);
@@ -36,8 +35,7 @@ class RequestRiskMustBeInDBTest {
 
     @Test
     void validateFieldRiskIsNullReturnNotError() {
-        Mockito.when(riskTypeRepository.findAllTitles()).thenReturn(List.of("Медицинский риск","Отмена поездки"));
-
+        Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(null);
         Optional<ValidationError> error = valid.validateField(request);
@@ -46,8 +44,7 @@ class RequestRiskMustBeInDBTest {
 
     @Test
     void validateFieldOneRiskInDBReturnNotError() {
-        Mockito.when(riskTypeRepository.findAllTitles()).thenReturn(List.of("Медицинский риск","Отмена поездки"));
-
+        Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of("Медицинский риск"));
         Optional<ValidationError> error = valid.validateField(request);
@@ -56,7 +53,7 @@ class RequestRiskMustBeInDBTest {
 
     @Test
     void validateFieldRiskTwoInDBReturnNotError() {
-        Mockito.when(riskTypeRepository.findAllTitles()).thenReturn(List.of("Медицинский риск","Отмена поездки"));
+        Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
 
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of("Медицинский риск","Отмена поездки"));
@@ -66,7 +63,7 @@ class RequestRiskMustBeInDBTest {
 
     @Test
     void validateFieldRiskOneInDBOneNotInDBReturnError() {
-        Mockito.when(riskTypeRepository.findAllTitles()).thenReturn(List.of("Медицинский риск","Отмена поездки"));
+        Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of("Медицинский риск","Отмена поездкdsddsи"));
         Optional<ValidationError> error = valid.validateField(request);
@@ -76,7 +73,7 @@ class RequestRiskMustBeInDBTest {
 
     @Test
     void validateFieldRiskTwoNotInDBReturnError() {
-        Mockito.when(riskTypeRepository.findAllTitles()).thenReturn(List.of("Медицинский риск","Отмена поездки"));
+        Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of("Медицинский риск11","Отмена поездкdsddsи"));
         Optional<ValidationError> error = valid.validateField(request);

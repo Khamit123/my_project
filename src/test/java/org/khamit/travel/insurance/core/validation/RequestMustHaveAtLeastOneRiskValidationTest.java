@@ -9,11 +9,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RequestMustHaveAtLeastOneRiskTest {
+class RequestMustHaveAtLeastOneRiskValidationTest {
 
     @Test
     void validateFieldNoRisksReturnError() {
-        RequestMustHaveAtLeastOneRisk valid = new RequestMustHaveAtLeastOneRisk();
+        RequestMustHaveAtLeastOneRiskValidation valid = new RequestMustHaveAtLeastOneRiskValidation();
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of());
         Optional<ValidationError> error = valid.validateField(request);
@@ -22,7 +22,7 @@ class RequestMustHaveAtLeastOneRiskTest {
     }
     @Test
     void validateFieldRisksIsNullReturnError() {
-        RequestMustHaveAtLeastOneRisk valid = new RequestMustHaveAtLeastOneRisk();
+        RequestMustHaveAtLeastOneRiskValidation valid = new RequestMustHaveAtLeastOneRiskValidation();
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(null);
         Optional<ValidationError> error = valid.validateField(request);
@@ -32,7 +32,7 @@ class RequestMustHaveAtLeastOneRiskTest {
 
     @Test
     void validateFieldOneRisksReturnError() {
-        RequestMustHaveAtLeastOneRisk valid = new RequestMustHaveAtLeastOneRisk();
+        RequestMustHaveAtLeastOneRiskValidation valid = new RequestMustHaveAtLeastOneRiskValidation();
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of("Risk 1"));
         Optional<ValidationError> error = valid.validateField(request);
@@ -40,7 +40,7 @@ class RequestMustHaveAtLeastOneRiskTest {
     }
     @Test
     void validateFieldMoreThanOneRisksReturnError() {
-        RequestMustHaveAtLeastOneRisk valid = new RequestMustHaveAtLeastOneRisk();
+        RequestMustHaveAtLeastOneRiskValidation valid = new RequestMustHaveAtLeastOneRiskValidation();
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of("Risk 1", "Risk 2"));
         Optional<ValidationError> error = valid.validateField(request);

@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 @Component
-public class RequestMustHaveAtLeastOneRisk implements RequestValidation{
+public class RequestCountryMustBeValidation implements RequestValidation {
     @Override
     public Optional<ValidationError> validateField(TravelCalculatePremiumRequest request) {
-        return (request.getSelectedRisks() == null || request.getSelectedRisks().isEmpty())?
-                Optional.of(new ValidationError("selectedRisk","At least one risk must be selected")):
+
+        return (request.getCountry()==null || request.getCountry().isEmpty())?
+                Optional.of(new ValidationError("country","Country must be")):
                 Optional.empty();
     }
 }

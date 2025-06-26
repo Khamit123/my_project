@@ -34,6 +34,7 @@ dependencies {
     testAnnotationProcessor('org.projectlombok:lombok:1.18.32')
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     testImplementation('uk.org.webcompere:model-assert:1.0.0')
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.0'
 
 
     test {

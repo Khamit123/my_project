@@ -9,15 +9,18 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Component
-public class RequestRiskMustBeInDB implements RequestValidation {
+public class RequestRiskMustBeInDBValidation implements RequestValidation {
     @Autowired
     RiskTypeRepository repository;
 
     @Override
     public Optional<ValidationError> validateField(TravelCalculatePremiumRequest request) {
         StringBuilder risksNotInDB = new StringBuilder("Следующие риски не существуют:");
-        HashSet<String> riskTypes = new HashSet<>(repository.findAllTitles());
+        Set<String> riskTypes = new HashSet<>(repository.findAll()).stream().map(RiskType::getTitle).collect(Collectors.toSet());
         int length1 = risksNotInDB.length();
         if(request.getSelectedRisks()!=null && request.getSelectedRisks().size()>0){
             request.getSelectedRisks().forEach(e->{

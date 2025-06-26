@@ -26,4 +26,7 @@ public class RiskType {
     @Column(name = "description",columnDefinition = "TEXT")
     private String description;
 
+    public RiskType(String a) {
+        this.title = a;
+    }
 }

@@ -23,8 +23,8 @@ public class TravelCalculatePremiumRequest {
     // Медицинский риск
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate birthday;
-    private int country;
-    private BigDecimal medicalLimit;
+    private String country;
+    private BigDecimal insuranceLimit;
     //Медицинский риск
 
 

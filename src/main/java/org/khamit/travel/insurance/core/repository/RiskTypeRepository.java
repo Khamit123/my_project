@@ -9,5 +9,4 @@ public interface RiskTypeRepository extends JpaRepository<RiskType, Long> {
 
     List<RiskType> findByTitle(String tittle);
 
-    List<String> findAllTitles();
 }
