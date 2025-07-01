@@ -16,7 +16,7 @@ public class RequestCountryMustBeInDBValidation implements RequestValidation {
 
     @Override
     public Optional<ValidationError> validateField(TravelCalculatePremiumRequest request) {
-        return (countryRepository.findByTitle(request.getCountry())==null || countryRepository.findByTitle(request.getCountry()).getTitle().isEmpty())?
+        return (countryRepository.findByTitle(request.getCountry())==null && request.getCountry()!=null)?
                 Optional.of(new ValidationError("country", "Calculating dont support this country")):
                 Optional.empty();
     }

@@ -31,7 +31,7 @@ class RequestCountryMustBeInDBValidationTest {
     void validateFieldNoCountryReturnNotError() {
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         Mockito.when(countryRepository.findByTitle(request.getCountry())).
-                thenReturn(new Country(null,"Россия",100d));
+                thenReturn(null);
         Optional<ValidationError> error = valid.validateField(request);
         assertFalse(error.isPresent());
     }

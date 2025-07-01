@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.2'
+    id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -21,10 +21,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'org.postgresql:postgresql'
-    runtimeOnly 'com.h2database:h2'
+
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     compileOnly('org.projectlombok:lombok:1.18.32')
@@ -35,13 +36,12 @@ dependencies {
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     testImplementation('uk.org.webcompere:model-assert:1.0.0')
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.0'
-
+    testImplementation('com.h2database:h2:2.2.224')
 
     test {
         useJUnitPlatform()
     }
 }
-
 
 compileJava {
     options.encoding = "UTF-8"
@@ -50,6 +50,7 @@ compileJava {
 compileTestJava {
     options.encoding = "UTF-8"
 }
+
 
 clean.doFirst {
     delete "${projectDir}/logs/"

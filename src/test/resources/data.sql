@@ -14,7 +14,7 @@ insert into risk_type (title) values
 ('Эвакуация и репатриация'),
 ('Активный отдых');
 
-insert into country (title, day_premium) VALUES
+insert into country (title, day_premium) values
 ('Россия',100),
 ('Латвия',150),
 ('Литва',150),
@@ -22,7 +22,7 @@ insert into country (title, day_premium) VALUES
 ('Чехия',70),
 ('Австралия',500);
 
-insert into insurance_limit (limit_min, limit_max, coef) VALUES
+insert into insurance_limit (limit_min, limit_max, coef) values
 (0,10000,1),
 (10001,15000,1.5),
 (15001,99999999,2);

@@ -28,5 +28,17 @@ public class TravelCalculatePremiumRequest {
     //Медицинский риск
 
 
-
+    @Override
+    public String toString() {
+        return "TravelCalculatePremiumRequest{" +
+                "personFirstName='" + personFirstName + '\'' +
+                ", personLastName='" + personLastName + '\'' +
+                ", agreementDateFrom=" + agreementDateFrom +
+                ", agreementDateTo=" + agreementDateTo +
+                ", selectedRisks=" + selectedRisks +
+                ", birthday=" + birthday +
+                ", country='" + country + '\'' +
+                ", insuranceLimit=" + insuranceLimit +
+                '}';
+    }
 }

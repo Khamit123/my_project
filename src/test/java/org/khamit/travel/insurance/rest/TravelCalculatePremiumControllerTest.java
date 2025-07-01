@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.khamit.travel.insurance.core.testUtill.UtillMethods;
 import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
 import org.khamit.travel.insurance.dto.TravelCalculatePremiumResponse;
 import org.khamit.travel.insurance.dto.ValidationError;
@@ -33,52 +34,35 @@ import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 @AutoConfigureMockMvc
 public class TravelCalculatePremiumControllerTest {
 
-    @Autowired private MockMvc mockMvc;
-    @Autowired private JsonToString jsonToString;
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private JsonToString jsonToString;
     TravelCalculatePremiumRequest request;
     TravelCalculatePremiumResponse expectedResponse;
 
     @BeforeEach
     public void setUp() {
-        request = new TravelCalculatePremiumRequest();
-        request.setSelectedRisks(List.of("Медицинский риск","Отмена поездки"));
-        request.setCountry("Россия");
-        request.setInsuranceLimit(BigDecimal.ONE);
-        request.setBirthday(LocalDate.of(2003,6,15));
-        request.setAgreementDateFrom(LocalDate.of(2026,6,15));
-        request.setAgreementDateTo(LocalDate.of(2026,6,20));
-        request.setPersonFirstName("Хамит");
-        request.setPersonLastName("Билялетдинов");
-
-        expectedResponse = new TravelCalculatePremiumResponse();
-        expectedResponse.setErrors(null);
-        expectedResponse.setCountry("Россия");
-        expectedResponse.setInsuranceLimit(BigDecimal.ONE);
-        expectedResponse.setBirthday(LocalDate.of(2003,6,15));
-        expectedResponse.setAgreementDateFrom(LocalDate.now().plusDays(1));
-        expectedResponse.setAgreementDateTo(LocalDate.now().plusDays(6));
-        expectedResponse.setPersonFirstName("Хамит");
-        expectedResponse.setPersonLastName("Билялетдинов");
-        expectedResponse.setAgreementPrice(BigDecimal.valueOf(6));
+        request = UtillMethods.createRequest();
+        expectedResponse = UtillMethods.createResponse();
     }
-
 
 
     @Test
     public void firstNameNotProvided() throws Exception {
         request.setPersonFirstName(null);
-        expectedResponse=new TravelCalculatePremiumResponse(List.of(new ValidationError("personFirstName","Must not be empty!")));
-        executeAndCompare(request,expectedResponse);
+        expectedResponse = new TravelCalculatePremiumResponse(List.of(new ValidationError("personFirstName", "Must not be empty!")));
+        executeAndCompare(request, expectedResponse);
     }
 
-//    @Test
-//    public void lastNameNotProvided() throws Exception {
-//        executeAndCompare(
-//                "rest/TravelCalculatePremium/Request_lastName_not_provided.json",
-//                "rest/TravelCalculatePremium/Response_lastName_not_provided.json"
-//        );
-//    }
-//
+    @Test
+    public void lastNameNotProvided() throws Exception {
+        request.setPersonLastName(null);
+        expectedResponse = new TravelCalculatePremiumResponse(List.of(new ValidationError("personLastName", "Must not be empty!")));
+        executeAndCompare(request, expectedResponse);
+    }
+
+    //
 //    @Test
 //    public void agreementDateFromNotProvided() throws Exception {
 //        executeAndCompare(
@@ -125,27 +109,24 @@ public class TravelCalculatePremiumControllerTest {
 //        );
 //    }
 //
-//    @Test
-//    public void successRequest() throws Exception {
-//        executeAndCompare(
-//                "rest/TravelCalculatePremium/Request_success.json",
-//                "rest/TravelCalculatePremium/Response_success.json"
-//        );
-//    }
+    @Test
+    public void successRequest() throws Exception {
+        executeAndCompare(request, expectedResponse);
+    }
 
 
     private void executeAndCompare(TravelCalculatePremiumRequest request, TravelCalculatePremiumResponse expectedResponse) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         String requestContent = mapper.writeValueAsString(request);
-        MvcResult result =  mockMvc.perform(post("/insurance/travel/")
-                .content(requestContent)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
+        MvcResult result = mockMvc.perform(post("/insurance/travel/")
+                        .content(requestContent)
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
 
         String responseBodyContent = result.getResponse().getContentAsString();
         TravelCalculatePremiumResponse actualResponse = mapper.readValue(responseBodyContent, TravelCalculatePremiumResponse.class);
-        assertEquals(expectedResponse,actualResponse);
+        assertEquals(expectedResponse, actualResponse);
         //assertJson(e).where().keysInAnyOrder().arrayInAnyOrder().isEqualTo(responseBodyContent);
     }
 

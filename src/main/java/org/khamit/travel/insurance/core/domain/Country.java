@@ -25,4 +25,12 @@ public class Country {
     @Column(name = "day_premium", nullable = false)
     private Double dayPremium;
 
+    @Override
+    public String toString() {
+        return "Country{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", dayPremium=" + dayPremium +
+                '}';
+    }
 }

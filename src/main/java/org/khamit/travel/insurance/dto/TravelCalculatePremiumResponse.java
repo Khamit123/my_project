@@ -25,6 +25,7 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
     private String country;
     private BigDecimal insuranceLimit;
     private BigDecimal agreementPrice;
+    private List<RiskPremuimInfo> riskPremuimInfoList;
 
     public TravelCalculatePremiumResponse(List<ValidationError> errors) {
         super(errors);
@@ -34,21 +35,20 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         TravelCalculatePremiumResponse response = (TravelCalculatePremiumResponse) o;
-        return Objects.equals(personFirstName, response.personFirstName) && Objects.equals(personLastName, response.personLastName) && Objects.equals(agreementDateFrom, response.agreementDateFrom) && Objects.equals(agreementDateTo, response.agreementDateTo) && Objects.equals(birthday, response.birthday) && Objects.equals(country, response.country) && Objects.equals(insuranceLimit, response.insuranceLimit)
-                && Objects.equals(agreementPrice, response.agreementPrice) && Objects.equals(response.getErrors(),super.getErrors());
+        return Objects.equals(personFirstName, response.personFirstName) && Objects.equals(personLastName, response.personLastName) && Objects.equals(agreementDateFrom, response.agreementDateFrom) && Objects.equals(agreementDateTo, response.agreementDateTo) && Objects.equals(birthday, response.birthday) && Objects.equals(country, response.country) &&
+                (Objects.equals(insuranceLimit, response.insuranceLimit) || 0 == insuranceLimit.compareTo(response.insuranceLimit)) && (Objects.equals(agreementPrice, response.agreementPrice) || 0 == agreementPrice.compareTo(response.agreementPrice))
+                && Objects.equals(riskPremuimInfoList, response.riskPremuimInfoList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), personFirstName, personLastName, agreementDateFrom, agreementDateTo, birthday, country, insuranceLimit, agreementPrice);
+        return Objects.hash(personFirstName, personLastName, agreementDateFrom, agreementDateTo, birthday, country, insuranceLimit, agreementPrice, riskPremuimInfoList);
     }
 
     @Override
     public String toString() {
         return "TravelCalculatePremiumResponse{" +
-                "errors'" + super.getErrors() + '\'' +
                 "personFirstName='" + personFirstName + '\'' +
                 ", personLastName='" + personLastName + '\'' +
                 ", agreementDateFrom=" + agreementDateFrom +
@@ -57,6 +57,7 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
                 ", country='" + country + '\'' +
                 ", insuranceLimit=" + insuranceLimit +
                 ", agreementPrice=" + agreementPrice +
+                ", riskPremuimInfoList=" + riskPremuimInfoList +
                 '}';
     }
 }

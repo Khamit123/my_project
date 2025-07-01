@@ -11,10 +11,9 @@ create table if not exists country
     id         bigserial
         constraint country_pk
             primary key,
-    title      varchar(100) not null,
+    title      varchar(100)  not null,
     day_premium float        not null
 );
-
 create table if not exists age_coef
 (
     id       bigserial
