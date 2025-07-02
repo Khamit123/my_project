@@ -36,9 +36,10 @@ class MedicalRiskCalculatorTest {
     MedicalRiskCalculator medicalRiskCalculator;
 
     @Test
-    void calculateWorkCorrectly() {
-
+    void calculateWorkCorrectlyIflimitEnabledAndLimitIsPresent() {
         TravelCalculatePremiumRequest request =UtillMethods.createRequest();
+        medicalRiskCalculator.setLimitEnabled(true);
+        medicalRiskCalculator.setAgeCoefEnabled(true);
         Mockito.when(dateTimeService.calculateAgeByBirthday(request.getBirthday())).thenReturn(22);
         Mockito.when(ageCoefRepository.findCoefByAge(22)).thenReturn(new AgeCoef(3L, 18, 26, 1.2d));
         Mockito.when(countryRepository.findByTitle("Россия")).thenReturn(new Country(1L, "Россия", 100d));

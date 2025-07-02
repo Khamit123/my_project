@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Bilyash">
+        <createTable tableName="age_coef">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="age_pk"/>
+            </column>
+            <column name="age_from" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="age_to" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coef" type="DOUBLE precision">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Bilyash">
+        <createTable tableName="country">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="country_pk"/>
+            </column>
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="day_premium" type="DOUBLE precision">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Bilyash">
+        <createTable tableName="insurance_limit">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="limit_pk"/>
+            </column>
+            <column name="limit_min" type="DOUBLE precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="limit_max" type="DOUBLE precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coef" type="DOUBLE precision">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Bilyash">
+        <createTable tableName="risk_type">
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="id"/>
+            </column>
+            <column name="description" type="CLOB"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

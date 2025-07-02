@@ -13,7 +13,7 @@ public class UtillMethods {
         TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
         request.setSelectedRisks(List.of("Медицинский риск","Отмена поездки"));
         request.setCountry("Россия");
-        request.setInsuranceLimit(BigDecimal.ONE);
+        request.setMedicalLimit(BigDecimal.ONE);
         request.setBirthday(LocalDate.of(2003,6,15));
         request.setAgreementDateFrom(LocalDate.now().plusDays(1));
         request.setAgreementDateTo(LocalDate.now().plusDays(6));
@@ -26,7 +26,7 @@ public class UtillMethods {
         TravelCalculatePremiumResponse response = new TravelCalculatePremiumResponse();
         response.setErrors(null);
         response.setCountry("Россия");
-        response.setInsuranceLimit(BigDecimal.ONE);
+        response.setMedicalLimit(BigDecimal.ONE);
         response.setBirthday(LocalDate.of(2003,6,15));
         response.setAgreementDateFrom(LocalDate.now().plusDays(1));
         response.setAgreementDateTo(LocalDate.now().plusDays(6));

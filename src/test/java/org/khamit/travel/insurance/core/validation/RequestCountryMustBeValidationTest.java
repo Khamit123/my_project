@@ -11,9 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RequestCountryMustBeValidationTest {
 
-
-
-
     @Test
     void validateFieldICountryIsNullPresentReturnError() {
         RequestValidation validation = new RequestCountryMustBeValidation();

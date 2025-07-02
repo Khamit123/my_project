@@ -23,7 +23,7 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate birthday;
     private String country;
-    private BigDecimal insuranceLimit;
+    private BigDecimal medicalLimit;
     private BigDecimal agreementPrice;
     private List<RiskPremuimInfo> riskPremuimInfoList;
 
@@ -37,13 +37,13 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
         if (o == null || getClass() != o.getClass()) return false;
         TravelCalculatePremiumResponse response = (TravelCalculatePremiumResponse) o;
         return Objects.equals(personFirstName, response.personFirstName) && Objects.equals(personLastName, response.personLastName) && Objects.equals(agreementDateFrom, response.agreementDateFrom) && Objects.equals(agreementDateTo, response.agreementDateTo) && Objects.equals(birthday, response.birthday) && Objects.equals(country, response.country) &&
-                (Objects.equals(insuranceLimit, response.insuranceLimit) || 0 == insuranceLimit.compareTo(response.insuranceLimit)) && (Objects.equals(agreementPrice, response.agreementPrice) || 0 == agreementPrice.compareTo(response.agreementPrice))
+                (Objects.equals(medicalLimit, response.medicalLimit) || 0 == medicalLimit.compareTo(response.medicalLimit)) && (Objects.equals(agreementPrice, response.agreementPrice) || 0 == agreementPrice.compareTo(response.agreementPrice))
                 && Objects.equals(riskPremuimInfoList, response.riskPremuimInfoList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personFirstName, personLastName, agreementDateFrom, agreementDateTo, birthday, country, insuranceLimit, agreementPrice, riskPremuimInfoList);
+        return Objects.hash(personFirstName, personLastName, agreementDateFrom, agreementDateTo, birthday, country, medicalLimit, agreementPrice, riskPremuimInfoList);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
                 ", agreementDateTo=" + agreementDateTo +
                 ", birthday=" + birthday +
                 ", country='" + country + '\'' +
-                ", insuranceLimit=" + insuranceLimit +
+                ", insuranceLimit=" + medicalLimit +
                 ", agreementPrice=" + agreementPrice +
                 ", riskPremuimInfoList=" + riskPremuimInfoList +
                 '}';

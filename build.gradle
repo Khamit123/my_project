@@ -2,6 +2,12 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'maven-publish'
+    id("org.liquibase.gradle") version "2.2.2"
+}
+
+ext {
+    set("springBootVersion", "3.4.4")
 }
 
 group = 'mvc'
@@ -20,17 +26,13 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-
+    implementation 'org.liquibase:liquibase-core'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'org.postgresql:postgresql'
-
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
     compileOnly('org.projectlombok:lombok:1.18.32')
     annotationProcessor('org.projectlombok:lombok:1.18.32')
-
     testCompileOnly('org.projectlombok:lombok:1.18.32')
     testAnnotationProcessor('org.projectlombok:lombok:1.18.32')
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
@@ -38,11 +40,23 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.0'
     testImplementation('com.h2database:h2:2.2.224')
 
+
+    liquibaseRuntime 'org.liquibase:liquibase-core:4.24.0'
+    liquibaseRuntime 'info.picocli:picocli:4.7.5'
+    liquibaseRuntime 'org.postgresql:postgresql'
     test {
         useJUnitPlatform()
     }
 }
+liquibase {
+    activities {
+        main {
+            defaultsFile "src/main/resources/liquibase.properties"
+            classpath "$projectDir/src/main/resources"
+        }
 
+    }
+}
 compileJava {
     options.encoding = "UTF-8"
 }
@@ -50,7 +64,15 @@ compileJava {
 compileTestJava {
     options.encoding = "UTF-8"
 }
+jar {
+    enabled = false
+}
 
+bootJar {
+    enabled = true
+    archiveBaseName = 'insurance-calculator'
+    archiveVersion = '1.0.0'
+}
 
 clean.doFirst {
     delete "${projectDir}/logs/"
@@ -61,4 +83,34 @@ clean.doFirst {
 
     delete "${projectDir}/build/"
     println "${projectDir}/build/"
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            // Identify the artifact
+            artifact bootJar  // This refers to the Spring Boot's bootJar task
+
+            // Project coordinates
+            groupId = 'mvc'
+            artifactId = 'my_project'
+            version = '1.0.0'
+
+            // Add other metadata as needed
+            pom {
+                name = 'Insurance Calculator Application'
+                description = 'Application to calculate travel insurance premium'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+
+    // Configure the repository location (local Maven repository)
+    repositories {
+        mavenLocal()
+    }
 }
