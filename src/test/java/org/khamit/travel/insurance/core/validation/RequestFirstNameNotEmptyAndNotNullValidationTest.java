@@ -1,11 +1,11 @@
 package org.khamit.travel.insurance.core.validation;
 
 import org.junit.jupiter.api.Test;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.core.validation.person.RequestFirstNameNotEmptyAndNotNullValidation;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.mockito.Mockito;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +16,7 @@ class RequestFirstNameNotEmptyAndNotNullValidationTest {
 
     @Test
     void validateFieldFirstNameIsNullReturnErrorTest() {
-        TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
+        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
         Mockito.when(request.getPersonFirstName()).thenReturn(null);
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
@@ -25,7 +25,7 @@ class RequestFirstNameNotEmptyAndNotNullValidationTest {
 
     @Test
     void validateFieldFirstNameIsEmptyReturnErrorTest() {
-        TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
+        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
         Mockito.when(request.getPersonFirstName()).thenReturn("");
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
@@ -34,7 +34,7 @@ class RequestFirstNameNotEmptyAndNotNullValidationTest {
 
     @Test
     void validateFieldFirstNameIsNotNullAndNotEmptyNotReturnErrorTest() {
-        TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
+        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
         Mockito.when(request.getPersonFirstName()).thenReturn("Khamit");
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());

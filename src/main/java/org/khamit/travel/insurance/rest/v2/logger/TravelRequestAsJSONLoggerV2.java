@@ -1,16 +1,16 @@
-package org.khamit.travel.insurance.rest.logger;
+package org.khamit.travel.insurance.rest.v2.logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TravelRequestAsJSONLogger {
-    private final static Logger logger= LoggerFactory.getLogger(TravelRequestAsJSONLogger.class);
-    public void log(TravelCalculatePremiumRequest request){
+public class TravelRequestAsJSONLoggerV2 {
+    private final static Logger logger= LoggerFactory.getLogger(TravelRequestAsJSONLoggerV2.class);
+    public void log(TravelCalculatePremiumRequestV2 request){
          ObjectMapper mapper = new ObjectMapper();
          mapper.findAndRegisterModules();
         try {

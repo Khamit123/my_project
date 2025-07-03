@@ -1,7 +1,7 @@
 package org.khamit.travel.insurance.core.validation;
 
 import org.junit.jupiter.api.Test;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.mockito.Mockito;
 
@@ -16,7 +16,7 @@ class RequestDateToNotNullValidationTest {
 
     @Test
     void validateFieldDateToIsNullReturnErrorTest() {
-        TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
+        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
         Mockito.when(request.getAgreementDateTo()).thenReturn(null);
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
@@ -25,7 +25,7 @@ class RequestDateToNotNullValidationTest {
 
     @Test
     void validateFieldDateToIsNotNullNotReturnErrorTest() {
-        TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
+        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
         Mockito.when(request.getAgreementDateTo()).thenReturn(LocalDate.parse("2125-01-22"));
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());

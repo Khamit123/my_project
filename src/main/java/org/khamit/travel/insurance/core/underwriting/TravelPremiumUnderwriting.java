@@ -1,8 +1,10 @@
 package org.khamit.travel.insurance.core.underwriting;
 
 import org.khamit.travel.insurance.core.underwriting.calculator.RiskCalculator;
+import org.khamit.travel.insurance.dto.PersonPremiumInfo;
 import org.khamit.travel.insurance.dto.RiskPremuimInfo;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v1.Person;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
@@ -21,13 +23,13 @@ public class TravelPremiumUnderwriting {
         riskCalculators.forEach(calc->calculators.put(calc.getTitle(),calc));
     }
 
-    public Pair<BigDecimal,List<RiskPremuimInfo>> calculateUnderwriting(TravelCalculatePremiumRequest request){
+    public PersonPremiumInfo calculateUnderwriting(TravelCalculatePremiumRequestV2 request, Person person){
         final BigDecimal[] allPremium = {BigDecimal.ZERO};
         List<RiskPremuimInfo> premiumForEachRisk =new ArrayList<>();
         request.getSelectedRisks().forEach(risk->{
-            allPremium[0]=allPremium[0].add(calculators.get(risk).calculate(request));
-            premiumForEachRisk.add(new RiskPremuimInfo(risk,calculators.get(risk).calculate(request)));
+            allPremium[0]=allPremium[0].add(calculators.get(risk).calculate(request,person));
+            premiumForEachRisk.add(new RiskPremuimInfo(risk,calculators.get(risk).calculate(request,person)));
         });
-        return Pair.of(allPremium[0],premiumForEachRisk);
+        return new PersonPremiumInfo(allPremium[0],premiumForEachRisk);
     }
 }

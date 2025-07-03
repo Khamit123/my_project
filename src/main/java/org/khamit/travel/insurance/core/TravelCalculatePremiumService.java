@@ -1,10 +1,10 @@
 package org.khamit.travel.insurance.core;
 
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumResponse;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 
 public interface TravelCalculatePremiumService {
 
-    public TravelCalculatePremiumResponse calculatePremium(TravelCalculatePremiumRequest request);
+    public TravelCalculatePremiumResponseV2 calculatePremium(TravelCalculatePremiumRequestV2 request);
 
 }

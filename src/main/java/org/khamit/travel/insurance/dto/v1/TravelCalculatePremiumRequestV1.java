@@ -1,7 +1,10 @@
-package org.khamit.travel.insurance.dto;
+package org.khamit.travel.insurance.dto.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TravelCalculatePremiumRequest {
+public class TravelCalculatePremiumRequestV1 {
     private String personFirstName;
     private String personLastName;
     @JsonFormat(pattern = "dd.MM.yyyy")

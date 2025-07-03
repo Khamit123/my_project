@@ -1,0 +1,32 @@
+Для перво1 версии
+
+{
+"personFirstName" : "Хамит",
+"personLastName" : "dd",
+"agreementDateFrom" : "25.02.2026",
+"agreementDateTo" : "30.02.2026",
+"country":"Россия",
+"medicalLimit":1,
+"birthday":"22.02.2003",
+"selectedRisks":["Медицинский риск"]
+}
+
+
+Для второй, ставте даты в будущем
+
+{
+"personList":[{
+"personFirstName" : "Хамит",
+"personLastName" : "dd",
+"birthday":"22.02.2003"
+},{
+"personFirstName" : "Хамит",
+"personLastName" : "dd3",
+"birthday":"22.02.2001"
+}]
+"agreementDateFrom" : "25.02.2026",
+"agreementDateTo" : "30.02.2026",
+"country":"Россия",
+"medicalLimit":1,
+"selectedRisks":["Медицинский риск","Отмена поездки"]
+}

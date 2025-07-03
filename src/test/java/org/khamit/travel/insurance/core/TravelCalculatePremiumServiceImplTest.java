@@ -2,8 +2,8 @@
 //
 //import org.junit.jupiter.api.extension.ExtendWith;
 //import org.khamit.travel.insurance.core.underwriting.TravelPremiumUnderwriting;
-//import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
-//import org.khamit.travel.insurance.dto.TravelCalculatePremiumResponse;
+//import org.khamit.travel.insurance.dto.v1.TravelCalculatePremiumRequest;
+//import org.khamit.travel.insurance.dto.v1.TravelCalculatePremiumResponse;
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
 //import org.khamit.travel.insurance.dto.ValidationError;

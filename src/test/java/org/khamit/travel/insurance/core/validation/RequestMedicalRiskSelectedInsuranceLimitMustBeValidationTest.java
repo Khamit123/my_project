@@ -1,7 +1,7 @@
 package org.khamit.travel.insurance.core.validation;
 
 import org.junit.jupiter.api.Test;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ class RequestMedicalRiskSelectedInsuranceLimitMustBeValidationTest {
     void validateFieldIfMedicalRisksNotSelectedReturnNoError() {
         RequestMedicalRiskSelectedInsuranceLimitMustBeValidation validation = new RequestMedicalRiskSelectedInsuranceLimitMustBeValidation();
         validation.setMedicalEnabled(true);
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Отмена поездки"));
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());
@@ -26,7 +26,7 @@ class RequestMedicalRiskSelectedInsuranceLimitMustBeValidationTest {
     void validateFieldIfMedicalRisksIsNullReturnNoError() {
         RequestMedicalRiskSelectedInsuranceLimitMustBeValidation validation = new RequestMedicalRiskSelectedInsuranceLimitMustBeValidation();
         validation.setMedicalEnabled(true);
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(null);
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());
@@ -36,7 +36,7 @@ class RequestMedicalRiskSelectedInsuranceLimitMustBeValidationTest {
     void validateFieldIfMedicalRisksSelectedInsuranceLimitNotPresentReturnError() {
         RequestMedicalRiskSelectedInsuranceLimitMustBeValidation validation = new RequestMedicalRiskSelectedInsuranceLimitMustBeValidation();
         validation.setMedicalEnabled(true);
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск"));
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
@@ -48,7 +48,7 @@ class RequestMedicalRiskSelectedInsuranceLimitMustBeValidationTest {
     void validateFieldIfMedicalRisksSelectedInsuranceLimitIsPresentDontReturnError() {
         RequestMedicalRiskSelectedInsuranceLimitMustBeValidation validation = new RequestMedicalRiskSelectedInsuranceLimitMustBeValidation();
         validation.setMedicalEnabled(true);
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск"));
         request.setMedicalLimit(BigDecimal.ONE);
         Optional<ValidationError> error = validation.validateField(request);

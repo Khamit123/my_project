@@ -3,9 +3,10 @@ package org.khamit.travel.insurance.core;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.khamit.travel.insurance.core.underwriting.TravelPremiumUnderwriting;
+import org.khamit.travel.insurance.dto.PersonPremiumInfo;
 import org.khamit.travel.insurance.dto.RiskPremuimInfo;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumResponse;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.khamit.travel.insurance.core.validation.TravelCalculatePremiumRequestValidator;
 import org.springframework.data.util.Pair;
@@ -22,32 +23,33 @@ class TravelCalculatePremiumServiceImpl implements TravelCalculatePremiumService
     private final TravelCalculatePremiumRequestValidator validator;
 
     @Override
-    public TravelCalculatePremiumResponse calculatePremium(TravelCalculatePremiumRequest request) {
+    public TravelCalculatePremiumResponseV2 calculatePremium(TravelCalculatePremiumRequestV2 request) {
         List<ValidationError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return buildResponse(errors);
         }
+        final BigDecimal[] allPremium = {BigDecimal.ZERO};
+        request.getPersonList().forEach(person -> {
+            person.setPremiumInfo(calculator.calculateUnderwriting(request,person));
+            allPremium[0] = allPremium[0].add(person.getPremiumInfo().getTotalPremium());
+        });
 
-
-        return buildResponse(request,calculator.calculateUnderwriting(request));
+        return buildResponse(request,allPremium[0]);
     }
 
-    private TravelCalculatePremiumResponse buildResponse(List<ValidationError> errors) {
-        TravelCalculatePremiumResponse response = new TravelCalculatePremiumResponse();
+    private TravelCalculatePremiumResponseV2 buildResponse(List<ValidationError> errors) {
+        TravelCalculatePremiumResponseV2 response = new TravelCalculatePremiumResponseV2();
         response.setErrors(errors);
         return response;
     }
-    private TravelCalculatePremiumResponse buildResponse(TravelCalculatePremiumRequest request, Pair<BigDecimal,List<RiskPremuimInfo>> decimalListPair) {
-        TravelCalculatePremiumResponse response = new TravelCalculatePremiumResponse();
+    private TravelCalculatePremiumResponseV2 buildResponse(TravelCalculatePremiumRequestV2 request,BigDecimal premium) {
+        TravelCalculatePremiumResponseV2 response = new TravelCalculatePremiumResponseV2();
         response.setAgreementDateFrom(request.getAgreementDateFrom());
-        response.setPersonFirstName(request.getPersonFirstName());
-        response.setPersonLastName(request.getPersonLastName());
+        response.setPersonList(request.getPersonList());
         response.setAgreementDateTo(request.getAgreementDateTo());
-        response.setAgreementPrice(decimalListPair.getFirst());
+        response.setAgreementPrice(premium);
         response.setCountry(request.getCountry());
-        response.setBirthday(request.getBirthday());
         response.setMedicalLimit(request.getMedicalLimit());
-        response.setRiskPremuimInfoList(decimalListPair.getSecond());
         return response;
     }
 

@@ -6,8 +6,7 @@ import org.khamit.travel.insurance.core.testUtill.UtillMethods;
 import org.khamit.travel.insurance.core.underwriting.calculator.MedicalRiskCalculator;
 import org.khamit.travel.insurance.core.underwriting.calculator.TripCancellationCalculator;
 import org.khamit.travel.insurance.dto.RiskPremuimInfo;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
-import org.mockito.InjectMocks;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -32,7 +31,7 @@ class TravelPremiumUnderwritingTest {
     @Test
     void calculateUnderwritingWorkCorrectly() {
 
-        TravelCalculatePremiumRequest request = UtillMethods.createRequest();
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequest();
         Mockito.when(medicalRiskCalculator.getTitle()).thenReturn("Медицинский риск");
         Mockito.when(tripCancellationCalculator.getTitle()).thenReturn("Отмена поездки");
         Mockito.when(medicalRiskCalculator.calculate(request)).thenReturn(BigDecimal.TWO);

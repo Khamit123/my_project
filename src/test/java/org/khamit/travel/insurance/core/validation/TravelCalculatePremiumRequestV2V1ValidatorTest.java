@@ -2,7 +2,7 @@ package org.khamit.travel.insurance.core.validation;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
-class TravelCalculatePremiumRequestValidatorTest {
+class TravelCalculatePremiumRequestV2V1ValidatorTest {
 
     @Mock private RequestValidation requestValidation;
     @Mock private RequestValidation requestValidation2;
@@ -23,7 +23,7 @@ class TravelCalculatePremiumRequestValidatorTest {
 
     @Test
     void validateWithoutErrorsReturnNothing() {
-        TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
+        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
         validator =new TravelCalculatePremiumRequestValidator
                 (List.of(requestValidation,requestValidation2));
         Mockito.when(requestValidation.validateField(request))
@@ -36,7 +36,7 @@ class TravelCalculatePremiumRequestValidatorTest {
 
     @Test
     void validateWithErrorsReturnErrors() {
-        TravelCalculatePremiumRequest request = Mockito.mock(TravelCalculatePremiumRequest.class);
+        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
         validator =new TravelCalculatePremiumRequestValidator
                 (List.of(requestValidation,requestValidation2));
         Mockito.when(requestValidation.validateField(request))

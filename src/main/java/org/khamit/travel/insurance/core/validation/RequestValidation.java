@@ -1,10 +1,10 @@
 package org.khamit.travel.insurance.core.validation;
 
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 
 import java.util.Optional;
 
-interface RequestValidation {
-    Optional<ValidationError> validateField(TravelCalculatePremiumRequest request);
+public interface RequestValidation {
+    Optional<ValidationError> validateField(TravelCalculatePremiumRequestV2 request);
 }

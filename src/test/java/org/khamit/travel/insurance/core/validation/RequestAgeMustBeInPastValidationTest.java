@@ -2,7 +2,8 @@ package org.khamit.travel.insurance.core.validation;
 
 import org.junit.jupiter.api.Test;
 import org.khamit.travel.insurance.core.testUtill.UtillMethods;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.core.validation.person.RequestAgeMustBeInPastValidation;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ class RequestAgeMustBeInPastValidationTest {
     @Test
     void validateFieldAgeIsNullNotReturnError() {
         RequestAgeMustBeInPastValidation validator = new RequestAgeMustBeInPastValidation();
-        TravelCalculatePremiumRequest request = UtillMethods.createRequest();
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequest();
         request.setBirthday(null);
         assertTrue(validator.validateField(request).isEmpty());
     }
@@ -23,14 +24,14 @@ class RequestAgeMustBeInPastValidationTest {
     @Test
     void validateFieldAgeInPastNotReturnError() {
         RequestAgeMustBeInPastValidation validator = new RequestAgeMustBeInPastValidation();
-        TravelCalculatePremiumRequest request = UtillMethods.createRequest();
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequest();
         assertTrue(validator.validateField(request).isEmpty());
     }
 
     @Test
     void validateFieldAgeNotInPastReturnError() {
         RequestAgeMustBeInPastValidation validator = new RequestAgeMustBeInPastValidation();
-        TravelCalculatePremiumRequest request = UtillMethods.createRequest();
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequest();
         request.setBirthday(LocalDate.now().plusDays(1));
         Optional<ValidationError> error = validator.validateField(request);
         assertTrue(error.isPresent());

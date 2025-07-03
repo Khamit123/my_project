@@ -7,7 +7,8 @@ import org.khamit.travel.insurance.core.DateTimeService;
 import org.khamit.travel.insurance.core.repository.AgeCoefRepository;
 import org.khamit.travel.insurance.core.repository.CountryRepository;
 import org.khamit.travel.insurance.core.repository.InsuranceLimitRepository;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v1.Person;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -30,9 +31,9 @@ public class MedicalRiskCalculator implements RiskCalculator {
     private Boolean ageCoefEnabled;
 
     @Override
-    public BigDecimal calculate(TravelCalculatePremiumRequest request) {
+    public BigDecimal calculate(TravelCalculatePremiumRequestV2 request, Person person) {
         Double agcoef = ageCoefEnabled?
-                ageCoefRepository.findCoefByAge(dateTimeService.calculateAgeByBirthday(request.getBirthday())).getCoef()
+                ageCoefRepository.findCoefByAge(dateTimeService.calculateAgeByBirthday(person.getBirthday())).getCoef()
                 :1d;
         Double countryPremiuim = countryRepository.findByTitle(request.getCountry()).getDayPremium();
         Double limitCoef = limitEnabled?

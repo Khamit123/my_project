@@ -1,7 +1,13 @@
-package org.khamit.travel.insurance.dto;
+package org.khamit.travel.insurance.dto.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.khamit.travel.insurance.dto.CoreResponse;
+import org.khamit.travel.insurance.dto.RiskPremuimInfo;
+import org.khamit.travel.insurance.dto.ValidationError;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,7 +18,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TravelCalculatePremiumResponse extends CoreResponse {
+public class TravelCalculatePremiumResponseV1 extends CoreResponse {
 
     private String personFirstName;
     private String personLastName;
@@ -27,7 +33,7 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
     private BigDecimal agreementPrice;
     private List<RiskPremuimInfo> riskPremuimInfoList;
 
-    public TravelCalculatePremiumResponse(List<ValidationError> errors) {
+    public TravelCalculatePremiumResponseV1(List<ValidationError> errors) {
         super(errors);
     }
 
@@ -35,7 +41,7 @@ public class TravelCalculatePremiumResponse extends CoreResponse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TravelCalculatePremiumResponse response = (TravelCalculatePremiumResponse) o;
+        TravelCalculatePremiumResponseV1 response = (TravelCalculatePremiumResponseV1) o;
         return Objects.equals(personFirstName, response.personFirstName) && Objects.equals(personLastName, response.personLastName) && Objects.equals(agreementDateFrom, response.agreementDateFrom) && Objects.equals(agreementDateTo, response.agreementDateTo) && Objects.equals(birthday, response.birthday) && Objects.equals(country, response.country) &&
                 (Objects.equals(medicalLimit, response.medicalLimit) || 0 == medicalLimit.compareTo(response.medicalLimit)) && (Objects.equals(agreementPrice, response.agreementPrice) || 0 == agreementPrice.compareTo(response.agreementPrice))
                 && Objects.equals(riskPremuimInfoList, response.riskPremuimInfoList);

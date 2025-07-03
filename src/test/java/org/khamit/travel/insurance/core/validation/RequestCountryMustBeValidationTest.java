@@ -1,7 +1,7 @@
 package org.khamit.travel.insurance.core.validation;
 
 import org.junit.jupiter.api.Test;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 
 import java.util.List;
@@ -14,7 +14,7 @@ class RequestCountryMustBeValidationTest {
     @Test
     void validateFieldICountryIsNullPresentReturnError() {
         RequestValidation validation = new RequestCountryMustBeValidation();
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(null);
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
@@ -25,7 +25,7 @@ class RequestCountryMustBeValidationTest {
     @Test
     void validateFieldICountryIsEmptyPresentReturnError() {
         RequestValidation validation = new RequestCountryMustBeValidation();
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of(""));
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
@@ -36,7 +36,7 @@ class RequestCountryMustBeValidationTest {
     @Test
     void validateFieldCountryIsPresentDontReturnError() {
         RequestValidation validation = new RequestCountryMustBeValidation();
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск"));
         request.setCountry("Россия");
         Optional<ValidationError> error = validation.validateField(request);

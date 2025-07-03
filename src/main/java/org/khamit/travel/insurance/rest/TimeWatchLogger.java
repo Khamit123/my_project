@@ -1,4 +1,4 @@
-package org.khamit.travel.insurance.rest.logger;
+package org.khamit.travel.insurance.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

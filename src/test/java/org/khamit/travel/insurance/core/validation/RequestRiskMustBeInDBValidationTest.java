@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.khamit.travel.insurance.core.domain.RiskType;
 import org.khamit.travel.insurance.core.repository.RiskTypeRepository;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,7 +27,7 @@ class RequestRiskMustBeInDBValidationTest {
     @Test
     void validateFieldNoRiskReturnNotError() {
         Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of());
         Optional<ValidationError> error = valid.validateField(request);
         assertFalse(error.isPresent());
@@ -36,7 +36,7 @@ class RequestRiskMustBeInDBValidationTest {
     @Test
     void validateFieldRiskIsNullReturnNotError() {
         Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(null);
         Optional<ValidationError> error = valid.validateField(request);
         assertFalse(error.isPresent());
@@ -45,7 +45,7 @@ class RequestRiskMustBeInDBValidationTest {
     @Test
     void validateFieldOneRiskInDBReturnNotError() {
         Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск"));
         Optional<ValidationError> error = valid.validateField(request);
         assertFalse(error.isPresent());
@@ -55,7 +55,7 @@ class RequestRiskMustBeInDBValidationTest {
     void validateFieldRiskTwoInDBReturnNotError() {
         Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
 
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск","Отмена поездки"));
         Optional<ValidationError> error = valid.validateField(request);
         assertFalse(error.isPresent());
@@ -64,7 +64,7 @@ class RequestRiskMustBeInDBValidationTest {
     @Test
     void validateFieldRiskOneInDBOneNotInDBReturnError() {
         Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск","Отмена поездкdsddsи"));
         Optional<ValidationError> error = valid.validateField(request);
         assertTrue(error.isPresent());
@@ -74,7 +74,7 @@ class RequestRiskMustBeInDBValidationTest {
     @Test
     void validateFieldRiskTwoNotInDBReturnError() {
         Mockito.when(riskTypeRepository.findAll()).thenReturn(List.of(new RiskType("Медицинский риск"),new RiskType("Отмена поездки")));
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск11","Отмена поездкdsddsи"));
         Optional<ValidationError> error = valid.validateField(request);
         assertTrue(error.isPresent());

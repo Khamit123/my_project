@@ -6,11 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.khamit.travel.insurance.core.testUtill.UtillMethods;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumResponse;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
@@ -20,8 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,14 +29,14 @@ import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TravelCalculatePremiumControllerTest {
+public class TravelCalculatePremiumControllerV2V1Test {
 
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private JsonToString jsonToString;
-    TravelCalculatePremiumRequest request;
-    TravelCalculatePremiumResponse expectedResponse;
+    TravelCalculatePremiumRequestV2 request;
+    TravelCalculatePremiumResponseV2 expectedResponse;
 
     @BeforeEach
     public void setUp() {
@@ -51,14 +48,14 @@ public class TravelCalculatePremiumControllerTest {
     @Test
     public void firstNameNotProvided() throws Exception {
         request.setPersonFirstName(null);
-        expectedResponse = new TravelCalculatePremiumResponse(List.of(new ValidationError("personFirstName", "Must not be empty!")));
+        expectedResponse = new TravelCalculatePremiumResponseV2(List.of(new ValidationError("personFirstName", "Must not be empty!")));
         executeAndCompare(request, expectedResponse);
     }
 
     @Test
     public void lastNameNotProvided() throws Exception {
         request.setPersonLastName(null);
-        expectedResponse = new TravelCalculatePremiumResponse(List.of(new ValidationError("personLastName", "Must not be empty!")));
+        expectedResponse = new TravelCalculatePremiumResponseV2(List.of(new ValidationError("personLastName", "Must not be empty!")));
         executeAndCompare(request, expectedResponse);
     }
 
@@ -115,7 +112,7 @@ public class TravelCalculatePremiumControllerTest {
     }
 
 
-    private void executeAndCompare(TravelCalculatePremiumRequest request, TravelCalculatePremiumResponse expectedResponse) throws Exception {
+    private void executeAndCompare(TravelCalculatePremiumRequestV2 request, TravelCalculatePremiumResponseV2 expectedResponse) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         String requestContent = mapper.writeValueAsString(request);
@@ -125,7 +122,7 @@ public class TravelCalculatePremiumControllerTest {
                 .andExpect(status().isOk()).andReturn();
 
         String responseBodyContent = result.getResponse().getContentAsString();
-        TravelCalculatePremiumResponse actualResponse = mapper.readValue(responseBodyContent, TravelCalculatePremiumResponse.class);
+        TravelCalculatePremiumResponseV2 actualResponse = mapper.readValue(responseBodyContent, TravelCalculatePremiumResponseV2.class);
         assertEquals(expectedResponse, actualResponse);
         //assertJson(e).where().keysInAnyOrder().arrayInAnyOrder().isEqualTo(responseBodyContent);
     }

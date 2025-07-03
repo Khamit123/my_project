@@ -1,16 +1,16 @@
 package org.khamit.travel.insurance.core.testUtill;
 
 import org.khamit.travel.insurance.dto.RiskPremuimInfo;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumResponse;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 public class UtillMethods {
-    public static TravelCalculatePremiumRequest createRequest(){
-        TravelCalculatePremiumRequest request = new TravelCalculatePremiumRequest();
+    public static TravelCalculatePremiumRequestV2 createRequest(){
+        TravelCalculatePremiumRequestV2 request = new TravelCalculatePremiumRequestV2();
         request.setSelectedRisks(List.of("Медицинский риск","Отмена поездки"));
         request.setCountry("Россия");
         request.setMedicalLimit(BigDecimal.ONE);
@@ -22,8 +22,8 @@ public class UtillMethods {
         return request;
     }
 
-    public static TravelCalculatePremiumResponse createResponse(){
-        TravelCalculatePremiumResponse response = new TravelCalculatePremiumResponse();
+    public static TravelCalculatePremiumResponseV2 createResponse(){
+        TravelCalculatePremiumResponseV2 response = new TravelCalculatePremiumResponseV2();
         response.setErrors(null);
         response.setCountry("Россия");
         response.setMedicalLimit(BigDecimal.ONE);

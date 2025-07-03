@@ -51,7 +51,14 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="org.khamit.travel.insurance.rest.logger" level="INFO">
+    <logger name="org.khamit.travel.insurance.rest.v1.logger" level="INFO">
+        <appender-ref ref="RnR" />
+    </logger>
+
+    <logger name="org.khamit.travel.insurance.rest.v2.logger" level="INFO">
+        <appender-ref ref="RnR" />
+    </logger>
+    <logger name="org.khamit.travel.insurance.rest.TimeWatchLogger" level="INFO">
         <appender-ref ref="RnR" />
     </logger>
 

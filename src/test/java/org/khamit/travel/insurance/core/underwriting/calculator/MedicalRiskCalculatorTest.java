@@ -10,7 +10,7 @@ import org.khamit.travel.insurance.core.repository.AgeCoefRepository;
 import org.khamit.travel.insurance.core.repository.CountryRepository;
 import org.khamit.travel.insurance.core.repository.InsuranceLimitRepository;
 import org.khamit.travel.insurance.core.testUtill.UtillMethods;
-import org.khamit.travel.insurance.dto.TravelCalculatePremiumRequest;
+import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -18,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +36,7 @@ class MedicalRiskCalculatorTest {
 
     @Test
     void calculateWorkCorrectlyIflimitEnabledAndLimitIsPresent() {
-        TravelCalculatePremiumRequest request =UtillMethods.createRequest();
+        TravelCalculatePremiumRequestV2 request =UtillMethods.createRequest();
         medicalRiskCalculator.setLimitEnabled(true);
         medicalRiskCalculator.setAgeCoefEnabled(true);
         Mockito.when(dateTimeService.calculateAgeByBirthday(request.getBirthday())).thenReturn(22);
