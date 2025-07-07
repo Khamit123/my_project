@@ -1,6 +1,6 @@
 package org.khamit.travel.insurance.core.underwriting.calculator;
 
-import org.khamit.travel.insurance.dto.v1.Person;
+import org.khamit.travel.insurance.dto.Person;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.springframework.stereotype.Component;
 

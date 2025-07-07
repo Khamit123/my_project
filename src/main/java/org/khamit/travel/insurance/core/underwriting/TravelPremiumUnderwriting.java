@@ -3,10 +3,9 @@ package org.khamit.travel.insurance.core.underwriting;
 import org.khamit.travel.insurance.core.underwriting.calculator.RiskCalculator;
 import org.khamit.travel.insurance.dto.PersonPremiumInfo;
 import org.khamit.travel.insurance.dto.RiskPremuimInfo;
-import org.khamit.travel.insurance.dto.v1.Person;
+import org.khamit.travel.insurance.dto.Person;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

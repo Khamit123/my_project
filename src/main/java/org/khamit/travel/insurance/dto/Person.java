@@ -1,12 +1,10 @@
-package org.khamit.travel.insurance.dto.v1;
+package org.khamit.travel.insurance.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.khamit.travel.insurance.dto.PersonPremiumInfo;
-import org.khamit.travel.insurance.dto.RiskPremuimInfo;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,11 +15,13 @@ public class Person {
     private String personLastName;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate birthday;
+    private BigDecimal medicalLimit;
     private PersonPremiumInfo premiumInfo;
 
-    public Person(String personFirstName, String personLastName, LocalDate birthday) {
+    public Person(String personFirstName, String personLastName, LocalDate birthday,BigDecimal medicalLimit) {
         this.personFirstName = personFirstName;
         this.personLastName = personLastName;
         this.birthday = birthday;
+        this.medicalLimit = medicalLimit;
     }
 }

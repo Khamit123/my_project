@@ -2,7 +2,7 @@ package org.khamit.travel.insurance.dto.v2;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.khamit.travel.insurance.dto.v1.Person;
+import org.khamit.travel.insurance.dto.Person;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +20,5 @@ public class TravelCalculatePremiumRequestV2 {
     private List<String> selectedRisks;
 
     private String country;
-    private BigDecimal medicalLimit;
     private List<Person> personList;
 }

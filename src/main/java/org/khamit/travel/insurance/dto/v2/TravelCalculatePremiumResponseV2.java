@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.khamit.travel.insurance.dto.CoreResponse;
 import org.khamit.travel.insurance.dto.ValidationError;
-import org.khamit.travel.insurance.dto.v1.Person;
+import org.khamit.travel.insurance.dto.Person;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,7 +22,6 @@ public class TravelCalculatePremiumResponseV2 extends CoreResponse {
     private LocalDate agreementDateTo;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private String country;
-    private BigDecimal medicalLimit;
     private BigDecimal agreementPrice;
     List<Person> personList;
 

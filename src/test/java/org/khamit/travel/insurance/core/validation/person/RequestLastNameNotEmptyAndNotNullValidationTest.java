@@ -1,7 +1,7 @@
-package org.khamit.travel.insurance.core.validation;
+package org.khamit.travel.insurance.core.validation.person;
 
 import org.junit.jupiter.api.Test;
-import org.khamit.travel.insurance.core.validation.person.RequestLastNameNotEmptyAndNotNullValidation;
+import org.khamit.travel.insurance.core.testUtill.UtillMethods;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.mockito.Mockito;
@@ -15,8 +15,8 @@ class RequestLastNameNotEmptyAndNotNullValidationTest {
 
     @Test
     void validateFieldLastNameIsNullReturnErrorTest() {
-        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
-        Mockito.when(request.getPersonLastName()).thenReturn(null);
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequestV2();
+        request.getPersonList().getFirst().setPersonLastName(null);
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
         assertEquals( new ValidationError("personLastName","Must not be empty!"),error.get());
@@ -24,8 +24,8 @@ class RequestLastNameNotEmptyAndNotNullValidationTest {
 
     @Test
     void validateFieldLastNameIsEmptyReturnErrorTest() {
-        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
-        Mockito.when(request.getPersonLastName()).thenReturn("");
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequestV2();
+        request.getPersonList().getFirst().setPersonLastName("");
         Optional<ValidationError> error = validation.validateField(request);
         assertTrue(error.isPresent());
         assertEquals( new ValidationError("personLastName","Must not be empty!"),error.get());
@@ -33,8 +33,7 @@ class RequestLastNameNotEmptyAndNotNullValidationTest {
 
     @Test
     void validateFieldLastNameIsNotNullAndNotEmptyNotReturnErrorTest() {
-        TravelCalculatePremiumRequestV2 request = Mockito.mock(TravelCalculatePremiumRequestV2.class);
-        Mockito.when(request.getPersonLastName()).thenReturn("Khamit");
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequestV2();
         Optional<ValidationError> error = validation.validateField(request);
         assertFalse(error.isPresent());
     }

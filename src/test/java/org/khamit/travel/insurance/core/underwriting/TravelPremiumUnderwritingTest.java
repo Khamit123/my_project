@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.khamit.travel.insurance.core.testUtill.UtillMethods;
 import org.khamit.travel.insurance.core.underwriting.calculator.MedicalRiskCalculator;
 import org.khamit.travel.insurance.core.underwriting.calculator.TripCancellationCalculator;
+import org.khamit.travel.insurance.dto.PersonPremiumInfo;
 import org.khamit.travel.insurance.dto.RiskPremuimInfo;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.mockito.Mock;
@@ -31,21 +32,21 @@ class TravelPremiumUnderwritingTest {
     @Test
     void calculateUnderwritingWorkCorrectly() {
 
-        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequest();
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequestV2();
         Mockito.when(medicalRiskCalculator.getTitle()).thenReturn("Медицинский риск");
         Mockito.when(tripCancellationCalculator.getTitle()).thenReturn("Отмена поездки");
-        Mockito.when(medicalRiskCalculator.calculate(request)).thenReturn(BigDecimal.TWO);
-        Mockito.when(tripCancellationCalculator.calculate(request)).thenReturn(BigDecimal.TEN);
+        Mockito.when(medicalRiskCalculator.calculate(request,request.getPersonList().getFirst())).thenReturn(BigDecimal.TWO);
+        Mockito.when(tripCancellationCalculator.calculate(request,request.getPersonList().getFirst())).thenReturn(BigDecimal.TEN);
         travelPremiumUnderwriting = new TravelPremiumUnderwriting(List.of(medicalRiskCalculator, tripCancellationCalculator));
-        Pair<BigDecimal, List<RiskPremuimInfo>> answer= travelPremiumUnderwriting.calculateUnderwriting(request);
+        PersonPremiumInfo answer= travelPremiumUnderwriting.calculateUnderwriting(request,request.getPersonList().getFirst());
         List<RiskPremuimInfo> premuimInfos=new ArrayList<>();
         premuimInfos.add(new RiskPremuimInfo("Медицинский риск",BigDecimal.TWO));
         premuimInfos.add(new RiskPremuimInfo("Отмена поездки",BigDecimal.TEN));
         assertNotNull(answer);
-        assertNotNull(answer.getFirst());
-        assertNotNull(answer.getSecond());
-        assertEquals(0,answer.getFirst().compareTo(BigDecimal.valueOf(12)));
-        assertEquals(2,answer.getSecond().size());
-        assertEquals(premuimInfos,answer.getSecond());
+        assertNotNull(answer.getTotalPremium());
+        assertNotNull(answer.getRiskPremuimInfo());
+        assertEquals(0,answer.getTotalPremium().compareTo(BigDecimal.valueOf(12)));
+        assertEquals(2,answer.getRiskPremuimInfo().size());
+        assertEquals(premuimInfos,answer.getRiskPremuimInfo());
     }
 }

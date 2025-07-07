@@ -35,18 +35,61 @@ class MedicalRiskCalculatorTest {
     MedicalRiskCalculator medicalRiskCalculator;
 
     @Test
-    void calculateWorkCorrectlyIflimitEnabledAndLimitIsPresent() {
-        TravelCalculatePremiumRequestV2 request =UtillMethods.createRequest();
+    void calculateWorkCorrectlyIflimitEnabledAndAgeEnbaled() {
+        TravelCalculatePremiumRequestV2 request =UtillMethods.createRequestV2();
         medicalRiskCalculator.setLimitEnabled(true);
         medicalRiskCalculator.setAgeCoefEnabled(true);
-        Mockito.when(dateTimeService.calculateAgeByBirthday(request.getBirthday())).thenReturn(22);
+        Mockito.when(dateTimeService.calculateAgeByBirthday(request.getPersonList().getFirst().getBirthday())).thenReturn(22);
         Mockito.when(ageCoefRepository.findCoefByAge(22)).thenReturn(new AgeCoef(3L, 18, 26, 1.2d));
         Mockito.when(countryRepository.findByTitle("Россия")).thenReturn(new Country(1L, "Россия", 100d));
-        Mockito.when(limitRepository.findCoefByLimit(BigDecimal.ONE.doubleValue())).
-                thenReturn(new InsuranceLimit(1L, 0d, 1000d, 1d));
+        Mockito.when(limitRepository.findCoefByLimit(request.getPersonList().getFirst().getMedicalLimit().doubleValue())).
+                thenReturn(new InsuranceLimit(1L, 0d, 1000d, 1.4d));
         Mockito.when(dateTimeService.calculateDaysBetween
                 (LocalDate.now().plusDays(1), LocalDate.now().plusDays(6))).thenReturn(BigDecimal.valueOf(6));
-        assertEquals(0, BigDecimal.valueOf(720).compareTo(medicalRiskCalculator.calculate(request)));
+        assertEquals(0, BigDecimal.valueOf(1008).compareTo(medicalRiskCalculator.calculate(request,request.getPersonList().getFirst())));
+
+    }
+
+
+    @Test
+    void calculateWorkCorrectlyIflimitEnabledAndAgeDisabled() {
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequestV2();
+        medicalRiskCalculator.setLimitEnabled(true);
+        medicalRiskCalculator.setAgeCoefEnabled(false);
+
+        Mockito.when(countryRepository.findByTitle("Россия")).thenReturn(new Country(1L, "Россия", 100d));
+        Mockito.when(limitRepository.findCoefByLimit(request.getPersonList().getFirst().getMedicalLimit().doubleValue())).
+                thenReturn(new InsuranceLimit(1L, 0d, 1000d, 1.4d));
+        Mockito.when(dateTimeService.calculateDaysBetween
+                (LocalDate.now().plusDays(1), LocalDate.now().plusDays(6))).thenReturn(BigDecimal.valueOf(6));
+        assertEquals(0, BigDecimal.valueOf(840).compareTo(medicalRiskCalculator.calculate(request,request.getPersonList().getFirst())));
+
+    }
+
+    @Test
+    void calculateWorkCorrectlyIflimitDisablesAndAgeEnabled() {
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequestV2();
+        medicalRiskCalculator.setLimitEnabled(false);
+        medicalRiskCalculator.setAgeCoefEnabled(true);
+        Mockito.when(dateTimeService.calculateAgeByBirthday(request.getPersonList().getFirst().getBirthday())).thenReturn(22);
+        Mockito.when(ageCoefRepository.findCoefByAge(22)).thenReturn(new AgeCoef(3L, 18, 26, 1.2d));
+        Mockito.when(countryRepository.findByTitle("Россия")).thenReturn(new Country(1L, "Россия", 100d));
+
+        Mockito.when(dateTimeService.calculateDaysBetween
+                (LocalDate.now().plusDays(1), LocalDate.now().plusDays(6))).thenReturn(BigDecimal.valueOf(6));
+        assertEquals(0, BigDecimal.valueOf(720).compareTo(medicalRiskCalculator.calculate(request,request.getPersonList().getFirst())));
+
+    }
+
+    @Test
+    void calculateWorkCorrectlyIflimitDisablesAndAgeDisabled() {
+        TravelCalculatePremiumRequestV2 request = UtillMethods.createRequestV2();
+        medicalRiskCalculator.setLimitEnabled(false);
+        medicalRiskCalculator.setAgeCoefEnabled(false);
+        Mockito.when(countryRepository.findByTitle("Россия")).thenReturn(new Country(1L, "Россия", 100d));
+        Mockito.when(dateTimeService.calculateDaysBetween
+                (LocalDate.now().plusDays(1), LocalDate.now().plusDays(6))).thenReturn(BigDecimal.valueOf(6));
+        assertEquals(0, BigDecimal.valueOf(600).compareTo(medicalRiskCalculator.calculate(request,request.getPersonList().getFirst())));
 
     }
 }

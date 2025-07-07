@@ -1,4 +1,4 @@
-package org.khamit.travel.insurance.web;
+package org.khamit.travel.insurance.web.v1;
 
 
 import org.khamit.travel.insurance.core.TravelCalculatePremiumService;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class TravelInsuranceController {
+public class TravelInsuranceControllerV1 {
 
     private final TravelCalculatePremiumService service;
 
-    TravelInsuranceController(TravelCalculatePremiumService service) {
+    TravelInsuranceControllerV1(TravelCalculatePremiumService service) {
         this.service = service;
     }
 

@@ -1,4 +1,4 @@
-package org.khamit.travel.insurance.rest;
+package org.khamit.travel.insurance.rest.v2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -9,6 +9,7 @@ import org.khamit.travel.insurance.core.testUtill.UtillMethods;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 import org.khamit.travel.insurance.dto.ValidationError;
+import org.khamit.travel.insurance.rest.JsonToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,44 +30,42 @@ import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TravelCalculatePremiumControllerV2V1Test {
+public class TravelCalculatePremiumControllerV2Test {
 
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private JsonToString jsonToString;
+
     TravelCalculatePremiumRequestV2 request;
     TravelCalculatePremiumResponseV2 expectedResponse;
 
     @BeforeEach
     public void setUp() {
-        request = UtillMethods.createRequest();
-        expectedResponse = UtillMethods.createResponse();
+        request = UtillMethods.createRequestV2();
+        expectedResponse = UtillMethods.createResponseV2();
     }
 
 
     @Test
     public void firstNameNotProvided() throws Exception {
-        request.setPersonFirstName(null);
+        request.getPersonList().getFirst().setPersonFirstName(null);
         expectedResponse = new TravelCalculatePremiumResponseV2(List.of(new ValidationError("personFirstName", "Must not be empty!")));
         executeAndCompare(request, expectedResponse);
     }
 
     @Test
     public void lastNameNotProvided() throws Exception {
-        request.setPersonLastName(null);
+        request.getPersonList().getFirst().setPersonLastName(null);
         expectedResponse = new TravelCalculatePremiumResponseV2(List.of(new ValidationError("personLastName", "Must not be empty!")));
         executeAndCompare(request, expectedResponse);
     }
 
-    //
-//    @Test
-//    public void agreementDateFromNotProvided() throws Exception {
-//        executeAndCompare(
-//                "rest/TravelCalculatePremium/Request_agreementDateFrom_not_provided.json",
-//                "rest/TravelCalculatePremium/Response_agreementDateFrom_not_provided.json"
-//        );
-//    }
+
+    @Test
+    public void agreementDateFromNotProvided() throws Exception {
+        request.setAgreementDateFrom(null);
+        expectedResponse = new TravelCalculatePremiumResponseV2(List.of(new ValidationError("agreementDateFrom", "Must not be empty!")));
+        executeAndCompare(request, expectedResponse);
+    }
 //
 //    @Test
 //    public void agreementDateToNotProvided() throws Exception {
@@ -116,7 +115,7 @@ public class TravelCalculatePremiumControllerV2V1Test {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         String requestContent = mapper.writeValueAsString(request);
-        MvcResult result = mockMvc.perform(post("/insurance/travel/")
+        MvcResult result = mockMvc.perform(post("/insurance/travel/v2/")
                         .content(requestContent)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
