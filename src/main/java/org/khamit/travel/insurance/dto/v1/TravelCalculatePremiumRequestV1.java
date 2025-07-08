@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,9 +19,11 @@ import java.util.List;
 public class TravelCalculatePremiumRequestV1 {
     private String personFirstName;
     private String personLastName;
+
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate agreementDateFrom;
-    @JsonFormat(pattern = "dd.MM.yyyy")
+
+   @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate agreementDateTo;
 
     private List<String> selectedRisks;
@@ -43,5 +47,14 @@ public class TravelCalculatePremiumRequestV1 {
                 ", country='" + country + '\'' +
                 ", insuranceLimit=" + medicalLimit +
                 '}';
+    }
+
+    public String formatedDateTo() {
+        if(agreementDateTo != null) {
+
+            System.out.println(agreementDateTo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            return agreementDateTo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+        return null;
     }
 }

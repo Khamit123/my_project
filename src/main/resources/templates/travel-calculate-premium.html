@@ -1,70 +1,258 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Travel Insurance Premium Calculation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Insurance Premium Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        .checkbox-item {
+            margin-bottom: 5px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        /*.date-input {*/
+        /*    position: relative;*/
+        /*}*/
+        /*.date-input::after {*/
+        /*    content: "(dd.mm.yyyy)";*/
+        /*    position: absolute;*/
+        /*    right: 10px;*/
+        /*    top: 35px;*/
+        /*    color: #777;*/
+        /*    font-size: 12px;*/
+        /*}*/
+    </style>
 </head>
 <body>
+<div class="container">
+    <h1>Travel Insurance Premium Calculator</h1>
+    <div id="premiumForm">
+        <div class="form-group">
+            <label for="personFirstName">First Name:</label>
+            <input type="text" id="personFirstName" name="personFirstName" >
+        </div>
 
-<h1>Travel Insurance Premium Calculation</h1>
+        <div class="form-group">
+            <label for="personLastName">Last Name:</label>
+            <input type="text" id="personLastName" name="personLastName">
+        </div>
 
-<form action="/insurance/travel/web" th:object="${request}" method="post">
-    <label for="personFirstName">First Name:</label>
-    <input type="text" id="personFirstName" th:field="${request.personFirstName}"><br><br>
+        <div class="form-group date-input">
+            <label for="agreementDateFrom">Agreement Date From:</label>
+            <input type="date" id="agreementDateFrom" name="agreementDateFrom" >
+        </div>
 
-    <label for="personLastName">Last Name:</label>
-    <input type="text" id="personLastName" th:field="${request.personLastName}"><br><br>
+        <div class="form-group date-input">
+            <label for="agreementDateTo">Agreement Date To:</label>
+            <input type="date" id="agreementDateTo" name="agreementDateTo" >
+        </div>
 
-    <label for="personBirthDate">Birth Date:</label>
-    <input type="date" id="personBirthDate"
-           th:field="${request.personBirthDate}"><br><br>
+        <div class="form-group date-input">
+            <label for="birthDate">Birth Date:</label>
+            <input type="date" id="birthDate" name="birthDate">
+        </div>
 
-    <label for="agreementDateFrom">Agreement Date From:</label>
-    <input type="date" id="agreementDateFrom" th:field="${request.agreementDateFrom}"><br><br>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <select id="country" name="country">
+                <option value="">-- Select Country --</option>
+                <option value="Россия">Россия</option>
+                <option value="Латвия">Латвия</option>
+                <option value="Литва">Литва</option>
+                <option value="Франция">Франция</option>
+                <option value="Китай">Китай</option>
+            </select>
+        </div>
 
-    <label for="agreementDateTo">Agreement Date To:</label>
-    <input type="date" id="agreementDateTo" th:field="${request.agreementDateTo}"><br><br>
+        <div class="form-group">
+            <label for="medicalRiskLimitLevel">Medical Risk Limit Level:</label>
+            <select id="medicalRiskLimitLevel" name="medicalRiskLimitLevel">
+                <option value="">-- Select Limit --</option>
+                <option value="10000">0 - 100 000</option>
+                <option value="125000">100 001 - 150 000</option>
+                <option value="170000">150 001 - 200 000</option>
 
-    <label for="country">Country:</label>
-    <input type="text" id="country" th:field="${request.country}"><br><br>
+            </select>
+        </div>
 
-    <label for="medicalRiskLimitLevel">Medical Risk Limit Level:</label>
-    <input type="text" id="medicalRiskLimitLevel" th:field="${request.medicalRiskLimitLevel}"><br><br>
+        <div class="form-group">
+            <label>Risks:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <label for="risk1">Медицинский риск</label>
+                    <input type="checkbox" id="risk1" name="risks" value="Медицинский риск">
 
-    <label for="selectedRisks">Selected Risks:</label>
-    <input type="text" id="selectedRisks" th:field="${request.selectedRisks}"><br><br>
+                </div>
+                <div class="checkbox-item">
+                    <label for="risk2">Отмена поездки</label>
+                    <input type="checkbox" id="risk2" name="risks" value="Отмена поездки">
 
-    <button type="submit">Calculate Premium</button>
-</form>
+                </div>
+            </div>
+        </div>
 
+        <button id="send-btn">Calculate Premium</button>
+    </div>
+    <div id="results">
+        <h2>Calculation Results</h2>
+        <div id="responseContent"></div>
+        <div id="errorContent" class="error"></div>
+    </div>
+</div>
 
-<td th:if="${response.errors != null}">
-    <h3>Travel Insurance Premium Calculation ERRORS</h3>
-    <tr th:each="error : ${response.errors}">
-        <td th:text="${error.errorCode}" />
-        <td th:text="${error.description}" />
-        <br>
-        <br>
-    </tr>
-</td>
+<script>
+    document.getElementById('send-btn').addEventListener('click', async ()=> {
 
-<br>
+        // Очищаем предыдущие результаты
+        document.getElementById('results').style.display = 'none';
+        document.getElementById('responseContent').innerHTML = '';
+        document.getElementById('errorContent').innerHTML = '';
+        // Подготовка данных формы
+        const formData = {
+            personFirstName: document.getElementById('personFirstName').value,
+            personLastName: document.getElementById('personLastName').value,
+            agreementDateFrom: formatDate(document.getElementById('agreementDateFrom')),
+            agreementDateTo: formatDate(document.getElementById('agreementDateTo')),
+            birthday: formatDate(document.getElementById('birthDate')),
+            country: document.getElementById('country').value,
+            medicalLimit: document.getElementById('medicalRiskLimitLevel').value,
+            selectedRisks: Array.from(document.querySelectorAll('input[name="risks"]:checked')).map(el => el.value)
+        };
 
-<h3>
-    <label th:if="${response.agreementPremium != null}"
-           th:text="'AGREEMENT PREMIUM: ' + ${response.agreementPremium}"></label>
-</h3>
+        // Преобразование дат в формат dd.MM.yyyy
+        function formatDate(dateInput) {
+            if (!dateInput.value) return null;
 
-<br>
+            const date = new Date(dateInput.value);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
 
-<td th:if="${response.risks != null}">
-    <h3>Travel Insurance Premium Calculation RISKS</h3>
-    <tr th:each="risk : ${response.risks}">
-        <td th:text="${risk.riskIc}" />
-        <td th:text="${risk.premium}" />
-        <br>
-    </tr>
-</td>
+            return `${day}.${month}.${year}`;
+        }
+        try {
+            // Отправка запроса на сервер
+            const response = await fetch('http://localhost:8081/insurance/travel/web/v1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
 
+            const data = await response.json();
+
+            // Обработка ответа
+            if (data.errors && data.errors.length > 0) {
+                // Показываем ошибки валидации
+                document.getElementById('errorContent').innerHTML =
+                    '<h3 class="error">Validation Errors:</h3><ul>' +
+                    data.errors.map(error => `<li>${error.field}: ${error.message}</li>`).join('') +
+                    '</ul>';
+            } else {
+                // Показываем успешный результат
+                displayResults(data);
+            }
+
+            document.getElementById('results').style.display = 'block';
+        } catch (error) {
+            alert(error)
+            document.getElementById('errorContent').innerHTML =
+                `<p class="error">An error occurred: ${error.message}</p>`;
+            document.getElementById('results').style.display = 'block';
+        }
+    });
+
+    function displayResults(response) {
+        const responseContent = document.getElementById('responseContent');
+        responseContent.innerHTML = '';
+
+        // Основная информация
+        let html = `
+                <div class="success">
+                    <p><strong>Person:</strong> ${response.personFirstName} ${response.personLastName}</p>
+                    <p><strong>Agreement Period:</strong> ${response.agreementDateFrom} to ${response.agreementDateTo}</p>
+                    ${response.birthDate ? `<p><strong>Birth Date:</strong> ${response.birthDate}</p>` : ''}
+                    ${response.country ? `<p><strong>Country:</strong> ${response.country}</p>` : ''}
+                    ${response.medicalRiskLimitLevel ? `<p><strong>Medical Risk Limit:</strong> ${formatNumber(response.medicalRiskLimitLevel)}</p>` : ''}
+                    <p><strong>Total Premium:</strong> ${formatNumber(response.agreementPrice)}</p>
+                </div>
+            `;
+
+        // Риски и премии
+        if (response.riskPremuimInfoList && response.riskPremuimInfoList.length > 0) {
+            html += '<h3>Risk Premiums:</h3>';
+            response.riskPremuimInfoList.forEach(risk => {
+                html += `
+                        <div class="risk-premium">
+                            <p><strong>Risk:</strong> ${risk.risk}</p>
+                            <p><strong>Premium:</strong> ${formatNumber(risk.riskAmount)}</p>
+                        </div>
+                    `;
+            });
+        }
+
+        responseContent.innerHTML = html;
+    }
+
+    function formatNumber(value) {
+        // Форматирование чисел с разделителями тысяч
+        return value ? Number(value).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }) : '0.00';
+    }
+</script>
 </body>
 </html>
