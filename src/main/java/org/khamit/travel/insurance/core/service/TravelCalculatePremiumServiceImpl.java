@@ -1,15 +1,12 @@
-package org.khamit.travel.insurance.core;
+package org.khamit.travel.insurance.core.service;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.khamit.travel.insurance.core.underwriting.TravelPremiumUnderwriting;
-import org.khamit.travel.insurance.dto.PersonPremiumInfo;
-import org.khamit.travel.insurance.dto.RiskPremuimInfo;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 import org.khamit.travel.insurance.dto.ValidationError;
 import org.khamit.travel.insurance.core.validation.TravelCalculatePremiumRequestValidator;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

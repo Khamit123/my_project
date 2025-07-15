@@ -3,7 +3,7 @@ package org.khamit.travel.insurance.core.underwriting.calculator;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.khamit.travel.insurance.core.DateTimeService;
+import org.khamit.travel.insurance.core.service.DateTimeService;
 import org.khamit.travel.insurance.core.repository.AgeCoefRepository;
 import org.khamit.travel.insurance.core.repository.CountryRepository;
 import org.khamit.travel.insurance.core.repository.InsuranceLimitRepository;

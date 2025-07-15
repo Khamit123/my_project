@@ -1,4 +1,4 @@
-package org.khamit.travel.insurance.core;
+package org.khamit.travel.insurance.core.service;
 
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;

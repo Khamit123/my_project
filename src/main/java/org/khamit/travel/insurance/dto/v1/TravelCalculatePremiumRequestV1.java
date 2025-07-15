@@ -25,7 +25,7 @@ public class TravelCalculatePremiumRequestV1 {
 
    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate agreementDateTo;
-
+    private String personCode;
     private List<String> selectedRisks;
     // Медицинский риск
     @JsonFormat(pattern = "dd.MM.yyyy")
@@ -37,24 +37,16 @@ public class TravelCalculatePremiumRequestV1 {
 
     @Override
     public String toString() {
-        return "TravelCalculatePremiumRequest{" +
+        return "TravelCalculatePremiumRequestV1{" +
                 "personFirstName='" + personFirstName + '\'' +
                 ", personLastName='" + personLastName + '\'' +
                 ", agreementDateFrom=" + agreementDateFrom +
                 ", agreementDateTo=" + agreementDateTo +
+                ", personCode='" + personCode + '\'' +
                 ", selectedRisks=" + selectedRisks +
                 ", birthday=" + birthday +
                 ", country='" + country + '\'' +
-                ", insuranceLimit=" + medicalLimit +
+                ", medicalLimit=" + medicalLimit +
                 '}';
-    }
-
-    public String formatedDateTo() {
-        if(agreementDateTo != null) {
-
-            System.out.println(agreementDateTo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            return agreementDateTo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        }
-        return null;
     }
 }

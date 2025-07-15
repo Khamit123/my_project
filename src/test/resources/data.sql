@@ -23,6 +23,6 @@ insert into country (title, day_premium) values
 ('Австралия',500);
 
 insert into insurance_limit (limit_min, limit_max, coef) values
-(0,10000,1),
-(10001,15000,1.5),
-(15001,99999999,2);
+(0,100000,1),
+(100001,150000,1.5),
+(150001,99999999,2);

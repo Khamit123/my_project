@@ -1,7 +1,7 @@
 package org.khamit.travel.insurance.rest.v1;
 
 import lombok.RequiredArgsConstructor;
-import org.khamit.travel.insurance.core.TravelCalculatePremiumService;
+import org.khamit.travel.insurance.core.service.TravelCalculatePremiumService;
 import org.khamit.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.khamit.travel.insurance.dto.v1.TravelCalculatePremiumResponseV1;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;

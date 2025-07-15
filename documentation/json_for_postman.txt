@@ -5,6 +5,7 @@
 "personLastName" : "dd",
 "agreementDateFrom" : "25.02.2026",
 "agreementDateTo" : "30.02.2026",
+"personCode":"code1"
 "country":"Россия",
 "medicalLimit":1,
 "birthday":"22.02.2003",

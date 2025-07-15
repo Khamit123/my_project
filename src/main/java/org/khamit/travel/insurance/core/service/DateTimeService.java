@@ -1,4 +1,4 @@
-package org.khamit.travel.insurance.core;
+package org.khamit.travel.insurance.core.service;
 
 import org.springframework.stereotype.Component;
 

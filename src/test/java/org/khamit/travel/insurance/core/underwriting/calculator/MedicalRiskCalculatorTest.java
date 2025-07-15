@@ -2,7 +2,7 @@ package org.khamit.travel.insurance.core.underwriting.calculator;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.khamit.travel.insurance.core.DateTimeService;
+import org.khamit.travel.insurance.core.service.DateTimeService;
 import org.khamit.travel.insurance.core.domain.AgeCoef;
 import org.khamit.travel.insurance.core.domain.Country;
 import org.khamit.travel.insurance.core.domain.InsuranceLimit;

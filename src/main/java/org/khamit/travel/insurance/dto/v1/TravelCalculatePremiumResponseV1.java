@@ -22,6 +22,7 @@ public class TravelCalculatePremiumResponseV1 extends CoreResponse {
 
     private String personFirstName;
     private String personLastName;
+    private String personCode;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate agreementDateFrom;
     @JsonFormat(pattern = "dd.MM.yyyy")
@@ -44,24 +45,25 @@ public class TravelCalculatePremiumResponseV1 extends CoreResponse {
         TravelCalculatePremiumResponseV1 response = (TravelCalculatePremiumResponseV1) o;
         return Objects.equals(personFirstName, response.personFirstName) && Objects.equals(personLastName, response.personLastName) && Objects.equals(agreementDateFrom, response.agreementDateFrom) && Objects.equals(agreementDateTo, response.agreementDateTo) && Objects.equals(birthday, response.birthday) && Objects.equals(country, response.country) &&
                 (Objects.equals(medicalLimit, response.medicalLimit) || 0 == medicalLimit.compareTo(response.medicalLimit)) && (Objects.equals(agreementPrice, response.agreementPrice) || 0 == agreementPrice.compareTo(response.agreementPrice))
-                && Objects.equals(riskPremuimInfoList, response.riskPremuimInfoList);
+                && Objects.equals(riskPremuimInfoList, response.riskPremuimInfoList) && Objects.equals(personCode, response.personCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personFirstName, personLastName, agreementDateFrom, agreementDateTo, birthday, country, medicalLimit, agreementPrice, riskPremuimInfoList);
+        return Objects.hash(personFirstName, personLastName, agreementDateFrom, agreementDateTo, birthday, country, medicalLimit, agreementPrice, riskPremuimInfoList,personCode);
     }
 
     @Override
     public String toString() {
-        return "TravelCalculatePremiumResponse{" +
+        return "TravelCalculatePremiumResponseV1{" +
                 "personFirstName='" + personFirstName + '\'' +
                 ", personLastName='" + personLastName + '\'' +
+                ", personCode='" + personCode + '\'' +
                 ", agreementDateFrom=" + agreementDateFrom +
                 ", agreementDateTo=" + agreementDateTo +
                 ", birthday=" + birthday +
                 ", country='" + country + '\'' +
-                ", insuranceLimit=" + medicalLimit +
+                ", medicalLimit=" + medicalLimit +
                 ", agreementPrice=" + agreementPrice +
                 ", riskPremuimInfoList=" + riskPremuimInfoList +
                 '}';

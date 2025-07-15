@@ -47,8 +47,8 @@ public class UtillMethods {
         request.setSelectedRisks(List.of("Медицинский риск","Отмена поездки"));
         request.setCountry("Россия");
 
-        Person person = new Person("Хамит","Бил",LocalDate.of(2003,6,15),BigDecimal.ONE);
-        Person person2 = new Person("Егор","Бил",LocalDate.of(1981,6,15),BigDecimal.ONE);
+        Person person = new Person("Хамит","Бил",LocalDate.of(2003,6,15),BigDecimal.valueOf(100001),"code1");
+        Person person2 = new Person("Егор","Бил",LocalDate.of(1981,6,15),BigDecimal.valueOf(100001),"code2");
         List<Person> people = List.of(person,person2);
         request.setPersonList(people);
         request.setAgreementDateFrom(LocalDate.now().plusDays(1));
@@ -60,14 +60,14 @@ public class UtillMethods {
         TravelCalculatePremiumResponseV2 response = new TravelCalculatePremiumResponseV2();
         response.setErrors(null);
         response.setCountry("Россия");
-        Person person = new Person("Хамит","Бил",LocalDate.of(2003,6,15),BigDecimal.ONE);
-        Person person2 = new Person("Егор","Бил",LocalDate.of(1981,6,15),BigDecimal.ONE);
-        List<RiskPremuimInfo> riskPremuimInfos=List.of(new RiskPremuimInfo("Медицинский риск",BigDecimal.valueOf(720)),
+        Person person = new Person("Хамит","Бил",LocalDate.of(2003,6,15),BigDecimal.valueOf(100001),"code1");
+        Person person2 = new Person("Егор","Бил",LocalDate.of(1981,6,15),BigDecimal.valueOf(100001),"code2");
+        List<RiskPremuimInfo> riskPremuimInfos=List.of(new RiskPremuimInfo("Медицинский риск",BigDecimal.valueOf(1080)),
                 new RiskPremuimInfo("Отмена поездки",BigDecimal.valueOf(10)));
-        List<RiskPremuimInfo> riskPremuimInfos2=List.of(new RiskPremuimInfo("Медицинский риск",BigDecimal.valueOf(780)),
+        List<RiskPremuimInfo> riskPremuimInfos2=List.of(new RiskPremuimInfo("Медицинский риск",BigDecimal.valueOf(1170)),
                 new RiskPremuimInfo("Отмена поездки",BigDecimal.valueOf(10)));
-        person.setPremiumInfo(new PersonPremiumInfo(BigDecimal.valueOf(730),riskPremuimInfos));
-        person2.setPremiumInfo(new PersonPremiumInfo(BigDecimal.valueOf(790),riskPremuimInfos2));
+        person.setPremiumInfo(new PersonPremiumInfo(BigDecimal.valueOf(1090),riskPremuimInfos));
+        person2.setPremiumInfo(new PersonPremiumInfo(BigDecimal.valueOf(1180),riskPremuimInfos2));
         List<Person> people = List.of(person,person2);
         response.setPersonList(people);
         response.setAgreementDateFrom(LocalDate.now().plusDays(1));

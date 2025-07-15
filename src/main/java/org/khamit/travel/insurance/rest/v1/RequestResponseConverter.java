@@ -19,7 +19,8 @@ public class RequestResponseConverter {
         requestV2.setAgreementDateTo(requestV1.getAgreementDateTo());
         requestV2.setSelectedRisks(requestV1.getSelectedRisks());
         requestV2.setPersonList(List.of(
-                new Person(requestV1.getPersonFirstName(),requestV1.getPersonLastName(),requestV1.getBirthday(),requestV1.getMedicalLimit())));
+                new Person(requestV1.getPersonFirstName(),requestV1.getPersonLastName(),
+                        requestV1.getBirthday(),requestV1.getMedicalLimit(),requestV1.getPersonCode())));
         return requestV2;
     }
 
@@ -33,7 +34,8 @@ public class RequestResponseConverter {
         responseV1.setAgreementDateFrom(responseV2.getAgreementDateFrom());
         responseV1.setAgreementDateTo(responseV2.getAgreementDateTo());
         responseV1.setAgreementPrice(responseV2.getAgreementPrice());
-        Person person =responseV2.getPersonList().get(0);
+        Person person =responseV2.getPersonList().getFirst();
+        responseV1.setPersonCode(person.getPersonCode());
         responseV1.setPersonFirstName(person.getPersonFirstName());
         responseV1.setPersonLastName(person.getPersonLastName());
         responseV1.setBirthday(person.getBirthday());

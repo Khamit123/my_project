@@ -2,16 +2,13 @@ package org.khamit.travel.insurance.web.v1;
 
 
 import lombok.RequiredArgsConstructor;
-import org.khamit.travel.insurance.core.TravelCalculatePremiumService;
-import org.khamit.travel.insurance.core.repository.CountryRepository;
-import org.khamit.travel.insurance.core.repository.RiskTypeRepository;
+import org.khamit.travel.insurance.core.service.TravelCalculatePremiumService;
 import org.khamit.travel.insurance.dto.v1.TravelCalculatePremiumRequestV1;
 import org.khamit.travel.insurance.dto.v1.TravelCalculatePremiumResponseV1;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumRequestV2;
 import org.khamit.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 import org.khamit.travel.insurance.rest.v1.RequestResponseConverter;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller

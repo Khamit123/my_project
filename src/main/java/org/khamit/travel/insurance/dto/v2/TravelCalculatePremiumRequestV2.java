@@ -19,6 +19,7 @@ public class TravelCalculatePremiumRequestV2 {
     private LocalDate agreementDateTo;
     private List<String> selectedRisks;
 
+
     private String country;
     private List<Person> personList;
 }

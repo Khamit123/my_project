@@ -28,7 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(properties = {" medical.risk.limit.level.enabled=true",
+        "medical.risk.ageCoef.enabled=true"})
 @AutoConfigureMockMvc
 public class TravelCalculatePremiumControllerV2Test {
 
