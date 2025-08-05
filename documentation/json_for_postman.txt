@@ -1,11 +1,11 @@
-Для перво1 версии
+Для первой версии
 
 {
 "personFirstName" : "Хамит",
 "personLastName" : "dd",
 "agreementDateFrom" : "25.02.2026",
 "agreementDateTo" : "30.02.2026",
-"personCode":"code1"
+"personCode":"code1",
 "country":"Россия",
 "medicalLimit":1,
 "birthday":"22.02.2003",
@@ -19,11 +19,13 @@
 "personList":[{
 "personFirstName" : "Хамит",
 "personLastName" : "dd",
-"birthday":"22.02.2003"
+"birthday":"22.02.2003",
+"personCode":"code2"
 },{
 "personFirstName" : "Хамит",
 "personLastName" : "dd3",
 "birthday":"22.02.2001"
+"personCode":"code3"
 }]
 "agreementDateFrom" : "25.02.2026",
 "agreementDateTo" : "30.02.2026",

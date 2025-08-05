@@ -22,7 +22,7 @@ public class RiskType {
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;
-
+    @Lob
     @Column(name = "description",columnDefinition = "TEXT")
     private String description;
 
